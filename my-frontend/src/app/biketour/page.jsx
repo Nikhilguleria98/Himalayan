@@ -22,7 +22,7 @@ const BikeTour = () => {
         </div>
         <div className='w-full md:w-1/2 relative'>
           <div className='relative z-10'>
-            <Image
+            <img
               src='/assets/biketour/img1.png'
               alt='Buddhist stupa with prayer flags'
               className='w-full h-auto rounded-lg object-cover'
@@ -31,7 +31,7 @@ const BikeTour = () => {
             />
           </div>
           <div className='absolute bottom-[-40px] right-[-20px] z-10 hidden md:block'>
-            <Image
+            <img
               src='/assets/biketour/img2.png'
               alt='Buddhist temple'
               className='w-64 h-auto rounded-lg object-cover shadow-lg'
@@ -200,7 +200,7 @@ const TourBooking = () => {
           >
             
             <div className='relative' style={{ width: '100%' }}>
-              <Image
+              <img
                 src={tour.image || '/assets/biketour/img2.png'}
                 alt={tour.name}
                 className='w-full h-48 object-cover'
@@ -331,7 +331,7 @@ const Recomended = () => {
           >
             {/* Tour Image with Tag */}
             <div className='relative' style={{ width: '100%' }}>
-                    <Image
+                    <img
                     src={tour.image || '/assets/biketour/img2.png'}
                     alt={tour.name}
                     className='w-full h-48 object-cover'

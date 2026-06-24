@@ -49,7 +49,7 @@ export default function Navbar() {
           {navLinks.map((item, index) => {
             if (item.name === "Trips/Tours") {
               return (
-                <div key={index} className="relative">
+                <div key={index} className="relative" >
                   <div
                     onMouseEnter={() => setIsPackageOpen(true)}
                     onMouseLeave={() => setIsPackageOpen(false)}
@@ -68,9 +68,9 @@ export default function Navbar() {
                         <Link to="/StudentTours" className="block px-4 py-2 hover:bg-gray-100 transition-all">
                           Student Tours
                         </Link>
-                        <Link to="/biketour" className="block px-4 py-2 hover:bg-gray-100 transition-all">
+                        <button onClick={() => navigate("/BikeTour")} className="block px-4 py-2 hover:bg-gray-100 transition-all">
                           Bike Tours
-                        </Link>
+                        </button>
                         <Link to="/corporateTour" className="block px-4 py-2 hover:bg-gray-100 transition-all">
                           Corporate Tours
                         </Link>

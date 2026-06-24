@@ -1,6 +1,8 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 const DestinationHero = () => {
+const navigate = useNavigate();
+
   return (
     <div className="px-6 md:px-18 pt-10">
       <section className="flex flex-col md:flex-row items-center gap-4 md:gap-18">
@@ -13,7 +15,7 @@ const DestinationHero = () => {
           <p className="py-2">
             Explore the hidden wonders of Meghalaya — from living root bridges and mystical caves to sparkling waterfalls and serene villages. Our curated trips let you experience the vibrant culture, natural beauty, and offbeat trails of the Abode of Clouds. Whether you’re chasing clouds in Cherrapunji or boating through crystal-clear waters in Dawki, we promise an adventure that’s soulful, safe, and unforgettable.
           </p>
-          <button className="text-md px-4 py-1 z-10 sm:px-[1.5vw] sm:py-[0.5vw] sm:text-[1.2vw] font-medium rounded-full text-white bg-[#0C8699]">
+          <button onClick={() => navigate("/")} className="text-md px-4 py-1 z-10 sm:px-[1.5vw] sm:py-[0.5vw] sm:text-[1.2vw] font-medium rounded-full text-white bg-[#0C8699]">
             Book Your Trip
           </button>
         </div>

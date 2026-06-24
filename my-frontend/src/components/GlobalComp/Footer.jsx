@@ -68,7 +68,7 @@ const Footer = () => {
               <ul className="mt-6 space-y-4 text-sm">
                 <li className="text-neutral-50 flex gap-1 text-base font-normal font-poppins">
                   <Mail />
-                  <span className="break-all">Himlyankhadu@gmail.com</span>
+                  <span className="break-all">Himalyankhadu@gmail.com</span>
                 </li>
                 <li className="text-neutral-50 flex gap-1 text-base font-normal font-poppins">
                   <Phone />
@@ -77,7 +77,7 @@ const Footer = () => {
                 <li className="text-neutral-50 flex gap-1 text-base font-normal font-poppins">
                   <MapPin />
                   <span className="break-all">
-                    Himlayan Khadu 16 Miles, Shimla-Mandi National Highway,
+                    Himalayan Khadu 16 Miles, Shimla-Mandi National Highway,
                     Ghandal, District Shimla, Himachal Pradesh-171014.
                   </span>
                 </li>
@@ -112,7 +112,7 @@ const Footer = () => {
         {/* Bottom Row */}
         <div className="flex pt-8 justify-between items-center border-t border-white">
           <p className="text-neutral-50 text-xl font-normal font-lato leading-loose tracking-tight">
-            &copy; Copyright 2025. All Rights Reserved.
+            &copy; Copyright 2026. All Rights Reserved.
           </p>
           <ul className="flex gap-6">
             {[Facebook, Instagram, Twitter, Github, Dribbble].map((Icon, i) => (

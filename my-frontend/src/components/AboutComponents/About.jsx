@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function AboutSection() {
+  const navigate = useNavigate();
+
   return (
     <div className="responsivewidth py-12 md:py-16 lg:py-20 h-fit">
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
@@ -24,7 +27,7 @@ export default function AboutSection() {
             Let’s wander where the Wi-Fi is weak and the connection is real.
           </p>
           <div className="pt-4">
-            <button className="bg-[#0C8699] text-white rounded-full px-6 py-2">Book Your Trip</button>
+            <button onClick={() => navigate("/")} className="bg-[#0C8699] text-white rounded-full px-6 py-2">Book Your Trip</button>
           </div>
         </div>
 

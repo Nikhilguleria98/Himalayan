@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Section3 = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full w-full relative">
       <div>
@@ -72,9 +74,9 @@ const Section3 = () => {
               </div>
             </div>
 
-            <button className="text-sm sm:text-md px-4 py-2 sm:px-6 sm:py-3 font-medium rounded-full text-white bg-[#0C8699] hover:bg-[#097480] transition duration-300 mb-5 md:mb-0">
+            {/* <button onClick={() => navigate("/")} className="text-sm sm:text-md px-4 py-2 sm:px-6 sm:py-3 font-medium rounded-full text-white bg-[#0C8699] hover:bg-[#097480] transition duration-300 mb-5 md:mb-0">
               Book Your Trip
-            </button>
+            </button> */}
           </div>
 
           <div className="h-[11rem] sm:h-48 md:h-64 w-full flex items-end justify-end absolute bottom-0">

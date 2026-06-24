@@ -19,6 +19,13 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+  if (!phoneRegex.test(formData.phone)) {
+    alert("Please enter a valid 10-digit mobile number");
+    return;
+  }
     console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
@@ -67,7 +74,7 @@ export default function Contact() {
                 </h3>
               </div>
               <p className="self-stretch justify-start text-black text-xl font-normal font-poppins">
-                Himlayan Khadu 16 Miles, Shimla-Mandi National Highway, Ghandal,
+                Himalayan Khadu 16 Miles, Shimla-Mandi National Highway, Ghandal,
                 District Shimla, Himachal Pradesh-171014.
               </p>
             </div>
@@ -92,13 +99,13 @@ export default function Contact() {
                 </h3>
               </div>
               <p className="self-stretch justify-start text-black text-xl font-normal font-poppins">
-                Himlyankhadu@gmail.com
+                Himalayankhadu@gmail.com
               </p>
             </div>
           </div>
 
           {/* Booking Form */}
-          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg border-2 border-gray-100 relative top-40">
+          <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg border-2 border-gray-100 relative top-0">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
@@ -132,14 +139,20 @@ export default function Contact() {
                   required
                 />
                 <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone No"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#0099cc] border-opacity-30 rounded-full focus:outline-none focus:ring-1 focus:ring-[#0099cc]"
-                  required
-                />
+  type="tel"
+  name="phone"
+  placeholder="Phone No"
+  value={formData.phone}
+  onChange={(e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setFormData((prev) => ({ ...prev, phone: value }));
+  }}
+  maxLength={10}
+  pattern="[0-9][0-9]{9}"
+  title="Enter a valid 10-digit mobile number"
+  className="w-full px-4 py-3 border border-[#0099cc] border-opacity-30 rounded-full focus:outline-none focus:ring-1 focus:ring-[#0099cc]"
+  required
+/>
               </div>
 
               <div className="relative">
@@ -210,7 +223,7 @@ export default function Contact() {
       </div>
 
       {/* map */}
-      <div>
+      <div className="pt-10">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9999999999995!2d144.9630579153186!3d-37.81410797975146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f0f0f0f%3A0x0!2zMzdcwqAwJzE5LjgiUyAxNDTCsDUyJzEwLjAiRQ!5e0!3m2!1sen!2sin!4v1631234567890"
           width="100%"

@@ -1,6 +1,8 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Memory = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="relative w-full">
       <img
@@ -12,7 +14,7 @@ const Memory = () => {
         <h3 className="text-[5vw] sm:text-[3vw] md:text-[2.5vw] font-bold text-white">
           Want to make Beautiful memories?
         </h3>
-        <button className="bg-[#0C8699] px-6 py-2 rounded-full mt-4 text-sm text-white hover:bg-[#0b7486] transition">
+        <button onClick={()=> navigate('/Contact')} className="bg-[#0C8699] px-6 py-2 rounded-full mt-4 text-sm text-white hover:bg-[#0b7486] transition">
           Get in touch with us Today!
         </button>
       </div>
