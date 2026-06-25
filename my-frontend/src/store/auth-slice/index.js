@@ -45,6 +45,52 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const resendOTP = createAsyncThunk(
+  "auth/resendOTP",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/resend-otp`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || {
+          success: false,
+          message: error.message || "Failed to resend OTP",
+        }
+      );
+    }
+  }
+);
+
+export const verifyOTP = createAsyncThunk(
+  "auth/verifyOTP",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/verify-otp`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || {
+          success: false,
+          message: error.message || "OTP verification failed",
+        }
+      );
+    }
+  }
+);
+
 // Login user async thunk
 export const loginUser = createAsyncThunk(
   "auth/login",

@@ -11,6 +11,19 @@ const UserSchema = new mongoose.Schema({
         required : true,
         unique : true
     },
+    phone: {
+        type: String,
+        required: function () {
+            return this.role !== "admin";
+        },
+        unique: true,
+        sparse: true,
+    },
+    
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
     password : {
         type : String,
         required : true,

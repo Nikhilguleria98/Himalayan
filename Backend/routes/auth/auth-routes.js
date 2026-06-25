@@ -1,10 +1,12 @@
 import express from "express"
-import {loginUser, loginAdmin, registerUser,logoutUser,authMiddleware} from "../../controllers/auth/auth-controller.js"
+import {loginUser, loginAdmin, registerUser, verifyOTP, resendOTP, logoutUser, authMiddleware} from "../../controllers/auth/auth-controller.js"
 
 
 const router = express.Router()
 
 router.post('/register',registerUser)
+router.post('/verify-otp',verifyOTP)
+router.post('/resend-otp',resendOTP)
 router.post('/login',loginUser)
 router.post('/admin-login',loginAdmin)
 router.post('/logout',logoutUser)

@@ -1,5 +1,5 @@
-import dotenv from "dotenv"
-import express from "express"
+import "dotenv/config";
+import express from "express";
 import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
 import cors from "cors"
@@ -15,14 +15,14 @@ import clientReviewRouter from './routes/client/review-routes.js'
 import clientSearchRouter from './routes/client/search-routes.js'
 import clientTourPackageRouter from './routes/client/tourPackage-routes.js'
 import { seedAdminUser } from "./helpers/seedAdmin.js"
-
-dotenv.config();
+import { verifyEmailService } from "./helpers/sendEmail.js"
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log("MongoDB connected");
     await seedAdminUser();
+    await verifyEmailService();
   })
   .catch((error) => console.log(error));
 

@@ -28,6 +28,11 @@ const Form = ({ mode = "user" }) => {
       alert(data.message);
       navigate(data.user?.role === "admin" ? "/Dashboard/users" : "/");
     } catch (err) {
+      if (err?.needsVerification && err?.email) {
+        alert(err.message);
+        navigate("/verify-email", { state: { email: err.email } });
+        return;
+      }
       alert(`Error: ${err?.message || "Something went wrong. Please try again."}`);
       console.error(err);
     } finally {

@@ -5,6 +5,7 @@ import About from './app/about/page';
 import Login from './app/Login/page';
 import AdminLogin from './app/AdminLogin/page';
 import SignUp from './app/Signup/page';
+import VerifyEmailPage from './app/verify-email/page';
 import Blog from './app/Blog/page';
 import Contact from './app/Contact/page';
 import CorporateTour from './app/corporateTour/page';
@@ -36,6 +37,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/Signup" element={<SignUp />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/Blog" element={<Blog />} />
