@@ -29,7 +29,7 @@ const Signup = () => {
     try {
       const data = await dispatch(registerUser(formData));
       if (data?.payload?.success) {
-        navigate("/Login");
+        navigate("/verify-email", { state: { email: formData.email } });
       } else {
         const message =
           data?.payload?.message ||

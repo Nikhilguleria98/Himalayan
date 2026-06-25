@@ -35,6 +35,11 @@ const Form = ({ mode = "user" }) => {
         navigate("/");
       }
     } catch (err) {
+      if (err?.needsVerification && err?.email) {
+        setError(err.message);
+        navigate("/verify-email", { state: { email: err.email } });
+        return;
+      }
       setError(err?.message || "Something went wrong. Please try again.");
       console.error(err);
     } finally {

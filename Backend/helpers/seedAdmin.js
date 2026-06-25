@@ -19,8 +19,9 @@ export const seedAdminUser = async () => {
     if (existingAdmin) {
       existingAdmin.userName = existingAdmin.userName || adminUserName;
       existingAdmin.role = "admin";
+      existingAdmin.isVerified = true;
       existingAdmin.password = hashedPassword;
-      await existingAdmin.save();
+      await existingAdmin.save({ validateBeforeSave: false });
       console.log(`Admin account ready: ${adminEmail}`);
       return;
     }
@@ -35,6 +36,7 @@ export const seedAdminUser = async () => {
       email: adminEmail,
       password: hashedPassword,
       role: "admin",
+      isVerified: true,
     });
 
     console.log(`Admin account created: ${adminEmail}`);
