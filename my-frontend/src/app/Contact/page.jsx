@@ -22,10 +22,10 @@ export default function Contact() {
 
     const phoneRegex = /^[6-9]\d{9}$/;
 
-  if (!phoneRegex.test(formData.phone)) {
-    alert("Please enter a valid 10-digit mobile number");
-    return;
-  }
+    if (!phoneRegex.test(formData.phone)) {
+      alert("Please enter a valid 10-digit mobile number");
+      return;
+    }
     console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
@@ -139,20 +139,20 @@ export default function Contact() {
                   required
                 />
                 <input
-  type="tel"
-  name="phone"
-  placeholder="Phone No"
-  value={formData.phone}
-  onChange={(e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    setFormData((prev) => ({ ...prev, phone: value }));
-  }}
-  maxLength={10}
-  pattern="[0-9][0-9]{9}"
-  title="Enter a valid 10-digit mobile number"
-  className="w-full px-4 py-3 border border-[#0099cc] border-opacity-30 rounded-full focus:outline-none focus:ring-1 focus:ring-[#0099cc]"
-  required
-/>
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone No"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    setFormData((prev) => ({ ...prev, phone: value }));
+                  }}
+                  maxLength={10}
+                  pattern="[0-9][0-9]{9}"
+                  title="Enter a valid 10-digit mobile number"
+                  className="w-full px-4 py-3 border border-[#0099cc] border-opacity-30 rounded-full focus:outline-none focus:ring-1 focus:ring-[#0099cc]"
+                  required
+                />
               </div>
 
               <div className="relative">

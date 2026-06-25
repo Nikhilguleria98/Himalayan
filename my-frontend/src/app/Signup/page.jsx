@@ -8,6 +8,7 @@ import { registerUser } from "../../store/auth-slice";
 const initialState = {
   userName: "",
   email: "",
+  phone: "",
   password: "",
 };
 

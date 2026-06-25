@@ -6,6 +6,7 @@ import { registerUser } from "../../store/auth-slice";
 const initialState = {
   userName: "",
   email: "",
+  phone: "",
   password: "",
 };
 
@@ -72,6 +73,21 @@ const Signup = () => {
             onChange={handleChange}
             className="w-full px-4 py-2 mb-3 rounded-full bg-white/10 text-teal-900 placeholder-gray-600 focus:ring-2 focus:ring-teal-400 focus:outline-none backdrop-blur-lg"
           />
+          <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone No"
+                  value={formData.phone}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, "");
+                    setFormData((prev) => ({ ...prev, phone: value }));
+                  }}
+                  maxLength={10}
+                  pattern="[0-9][0-9]{9}"
+                  title="Enter a valid 10-digit mobile number"
+                  className="w-full px-4 py-2 mb-3 rounded-full bg-white/10 text-teal-900 placeholder-gray-600 focus:ring-2 focus:ring-teal-400 focus:outline-none backdrop-blur-lg"
+                  required
+                />
           <input
             type="password"
             name="password"
