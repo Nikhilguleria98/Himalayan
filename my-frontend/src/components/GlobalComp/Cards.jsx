@@ -50,7 +50,7 @@ const Cards = ({ trips, showAll }) => {
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <p className="text-teal-600 text-sm font-bold">
                     {price > 0
-                      ? `Rs. ${price.toLocaleString("en-IN")}`
+                      ? `${import.meta.env.VITE_CURRENCY_SYMBOL}${price.toLocaleString("en-IN")}`
                       : "Price on request"}
                   </p>
                   <p className="text-yellow-600 text-sm">

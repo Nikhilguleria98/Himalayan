@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // replaces next/navigation
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, Plus, X } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"; // replaces next/navigation
 import * as z from "zod";
+import { ImageUploader } from "../../components/Dashboard/imageUploader";
+import { addNewPackage } from "../../store/admin/tourPackage-slice";
 import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
 import {
   Form,
   FormControl,
@@ -15,11 +20,6 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { Card, CardContent } from "../ui/card";
-import { ImageUploader } from "../../components/Dashboard/imageUploader";
-import { Loader2, Plus, X } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { addNewPackage } from "../../store/admin/tourPackage-slice";
 
 
 const formSchema = z.object({
@@ -309,7 +309,7 @@ export function ListingForm({ id }) {
                       <FormLabel>Price</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <span className="absolute left-3 top-2.5">$</span>
+                          <span className="absolute left-3 top-2.5"> {import.meta.env.VITE_CURRENCY_SYMBOL} </span>
                           <Input type="number" placeholder="0.00" className="pl-7" {...field} />
                         </div>
                       </FormControl>
@@ -327,7 +327,7 @@ export function ListingForm({ id }) {
                       <FormLabel>Sale Price</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <span className="absolute left-3 top-2.5">$</span>
+                          <span className="absolute left-3 top-2.5">{import.meta.env.VITE_CURRENCY_SYMBOL}</span>
                           <Input type="number" placeholder="0.00" className="pl-7" {...field} />
                         </div>
                       </FormControl>

@@ -98,7 +98,11 @@ const Grid = () => {
             <span>{item.averageReview || 5}/5 Reviews</span>
             {price > 0 && (
               <span className="font-semibold">
-                Rs. {price.toLocaleString("en-IN")}
+                <p className="text-teal-600 text-sm font-bold">
+                    {price > 0
+                      ? `${import.meta.env.VITE_CURRENCY_SYMBOL}${price.toLocaleString("en-IN")}`
+                      : "Price on request"}
+                  </p> {price.toLocaleString("en-IN")}
               </span>
             )}
           </div>

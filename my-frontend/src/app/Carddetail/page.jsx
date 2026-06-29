@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { ArrowLeft, CalendarDays, CheckCircle2, MapPin, Users } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_BASE_URL } from "../../lib/api";
 
 const initialTraveler = {
@@ -216,7 +216,7 @@ export default function PackageDetail() {
             <p className="text-sm text-gray-500">From</p>
             <p className="text-3xl font-bold text-teal-600">
               {pricePerPerson > 0
-                ? `Rs. ${pricePerPerson.toLocaleString("en-IN")}`
+                ? `${import.meta.env.VITE_CURRENCY_SYMBOL || '₹'} ${pricePerPerson.toLocaleString("en-IN")}`
                 : "Price on request"}
             </p>
           </div>
@@ -270,7 +270,7 @@ export default function PackageDetail() {
             >
               {isBooking
                 ? "Booking..."
-                : `Book Trip - Rs. ${totalPrice.toLocaleString("en-IN")}`}
+                : `Book Trip - ${import.meta.env.VITE_CURRENCY_SYMBOL} ${totalPrice.toLocaleString("en-IN")}`}
             </button>
             {bookingMessage && (
               <p className="text-sm text-teal-700">{bookingMessage}</p>
