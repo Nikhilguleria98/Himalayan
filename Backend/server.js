@@ -92,3 +92,4 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
+// Backend application server configuration

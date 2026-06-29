@@ -71,4 +71,6 @@ export default function App() {
   );
 }
 
+// Client application router setup
+
 

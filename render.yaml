@@ -36,3 +36,4 @@ services:
     envVars:
       - key: VITE_API_URL
         value: "https://himalayan-backend.onrender.com"
+# Render platform deployment blueprint
