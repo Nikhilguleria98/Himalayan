@@ -29,7 +29,9 @@ const Signup = () => {
     try {
       const data = await dispatch(registerUser(formData));
       if (data?.payload?.success) {
-        navigate("/verify-email", { state: { email: formData.email } });
+        // EMAIL VERIFICATION DISABLED - Redirect directly to login page
+        // navigate("/verify-email", { state: { email: formData.email } });
+        navigate("/Login");
       } else {
         const message =
           data?.payload?.message ||

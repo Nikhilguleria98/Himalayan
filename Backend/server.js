@@ -1,4 +1,7 @@
 import "dotenv/config";
+import dns from "dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 import express from "express";
 import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
@@ -16,7 +19,7 @@ import clientSearchRouter from './routes/client/search-routes.js'
 import clientTourPackageRouter from './routes/client/tourPackage-routes.js'
 import clientContactRouter from './routes/client/contact-routes.js'
 import { seedAdminUser } from "./helpers/seedAdmin.js"
-import { verifyEmailService } from "./helpers/sendEmail.js"
+// import { verifyEmailService } from "./helpers/sendEmail.js"
 
 mongoose
 
@@ -24,7 +27,7 @@ mongoose
   .then(async () => {
     console.log("MongoDB connected");
     await seedAdminUser();
-    await verifyEmailService();
+    // await verifyEmailService();
   })
   .catch((error) => console.log(error));
 
@@ -89,3 +92,4 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
+// Backend application server configuration

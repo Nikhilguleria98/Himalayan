@@ -30,7 +30,8 @@ const sendSignupOTP = async (email, userName) => {
     expiresAt: getOTPExpiry(expiryMinutes),
   });
 
-  await sendOTPEmail(email, otp, "signup", userName);
+  // EMAIL VERIFICATION DISABLED
+  // await sendOTPEmail(email, otp, "signup", userName);
 };
 
 export const registerUser = async (req, res) => {
@@ -45,14 +46,15 @@ export const registerUser = async (req, res) => {
 
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
-      if (!existingEmail.isVerified) {
-        await sendSignupOTP(email, existingEmail.userName);
-        return res.status(200).json({
-          success: true,
-          message: "OTP resent. Please verify your email.",
-          email,
-        });
-      }
+      // EMAIL VERIFICATION DISABLED
+      // if (!existingEmail.isVerified) {
+      //   await sendSignupOTP(email, existingEmail.userName);
+      //   return res.status(200).json({
+      //     success: true,
+      //     message: "OTP resent. Please verify your email.",
+      //     email,
+      //   });
+      // }
 
       return res.status(409).json({
         success: false,
@@ -75,15 +77,16 @@ export const registerUser = async (req, res) => {
       password: hashPassword,
       phone: phone || "",
       role: "user",
-      isVerified: false,
+      isVerified: true, // EMAIL VERIFICATION DISABLED - Directly verified
     });
     await newUser.save();
 
-    await sendSignupOTP(email, userName);
+    // EMAIL VERIFICATION DISABLED
+    // await sendSignupOTP(email, userName);
 
     res.status(200).json({
       success: true,
-      message: "Registration successful. Please verify your email with the OTP sent.",
+      message: "Registration successful. You can now log in.",
       email,
     });
   } catch (e) {
@@ -99,7 +102,7 @@ export const registerUser = async (req, res) => {
     if (e.message?.includes("Failed to send email")) {
       return res.status(500).json({
         success: false,
-        message: "Account created but OTP email could not be sent. Use resend OTP on the verify page.",
+        message: "Account created successfully.",
         email,
       });
     }
@@ -127,14 +130,15 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    if (!checkUser.isVerified) {
-      return res.status(403).json({
-        success: false,
-        message: "Please verify your email before logging in",
-        needsVerification: true,
-        email: checkUser.email,
-      });
-    }
+    // EMAIL VERIFICATION DISABLED
+    // if (!checkUser.isVerified) {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: "Please verify your email before logging in",
+    //     needsVerification: true,
+    //     email: checkUser.email,
+    //   });
+    // }
 
     if (checkUser.role !== "user") {
       return res.status(403).json({

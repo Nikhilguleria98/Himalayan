@@ -11,7 +11,7 @@ services:
       - key: PORT
         value: 5000
       - key: MONGODB_URI
-        value: "mongodb+srv://<username>:<password>@cluster0.mongodb.net/himalayanDB?retryWrites=true&w=majority"
+        value: "mongodb+srv://nikhilbatiyal3891_db_user:nikhil98@cluster0.6qv7hb4.mongodb.net/test?retryWrites=true&w=majority"
       - key: CLIENT_BASE_URL
         value: "https://himalayan-frontend.onrender.com"
       - key: CLOUDINARY_CLOUD_NAME
@@ -36,3 +36,4 @@ services:
     envVars:
       - key: VITE_API_URL
         value: "https://himalayan-backend.onrender.com"
+# Render platform deployment blueprint

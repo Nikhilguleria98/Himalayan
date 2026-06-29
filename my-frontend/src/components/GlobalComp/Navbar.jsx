@@ -34,15 +34,13 @@ export default function Navbar() {
     <nav className="bg-white shadow-md py-4">
       <div className="flex responsivewidth justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center">
+        <Link to="/" className="flex items-center shrink-0 pr-2">
           <img
             src="/assets/logo1.png"
-            alt="Logo"
-            className="size-[100px]"
-            width={12}
-            height={12}
+            alt="Himalayan Khadu Logo"
+            className="h-12 sm:h-16 md:h-20 w-auto object-contain shrink-0 max-w-none"
           />
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex space-x-8 text-gray-700">
@@ -123,14 +121,14 @@ export default function Navbar() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center space-x-4">
-
+        <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+          <Search className="w-5 h-5 text-gray-600 cursor-pointer shrink-0" />
 
           {isAuthenticated ? (
             <>
               {user?.role === "admin" && (
                 <button
-                  className="bg-white text-teal-700 border border-teal-600 px-4 py-2 rounded-full hover:bg-teal-50 transition-all"
+                  className="bg-white text-teal-700 border border-teal-600 px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-full hover:bg-teal-50 transition-all font-medium whitespace-nowrap"
                   onClick={() => navigate("/Dashboard/users")}
                 >
                   Admin Dashboard
@@ -138,7 +136,7 @@ export default function Navbar() {
               )}
               {user?.role !== "admin" && (
                 <button
-                  className="hidden sm:flex items-center gap-2 bg-white text-teal-700 border border-teal-600 px-4 py-2 rounded-full hover:bg-teal-50 transition-all"
+                  className="hidden sm:flex items-center gap-2 bg-white text-teal-700 border border-teal-600 px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-full hover:bg-teal-50 transition-all font-medium whitespace-nowrap"
                   onClick={() => navigate("/user-dashboard")}
                 >
                   <UserCircle className="h-4 w-4" />
@@ -146,7 +144,7 @@ export default function Navbar() {
                 </button>
               )}
               <button
-                className="bg-teal-500 text-white px-4 py-2 rounded-full hover:bg-teal-600 transition-all"
+                className="bg-teal-500 text-white px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-full hover:bg-teal-600 transition-all font-medium whitespace-nowrap"
                 onClick={handleLogout}
               >
                 Logout
@@ -154,7 +152,7 @@ export default function Navbar() {
             </>
           ) : (
             <button
-              className="bg-teal-600 text-white px-4 py-2 rounded-full hover:bg-teal-700 transition-all"
+              className="bg-teal-600 text-white px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm rounded-full hover:bg-teal-700 transition-all font-medium whitespace-nowrap"
               onClick={() => navigate("/Login")}
             >
               Login
@@ -163,7 +161,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="lg:hidden text-gray-700"
+            className="lg:hidden text-gray-700 p-1 shrink-0"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
