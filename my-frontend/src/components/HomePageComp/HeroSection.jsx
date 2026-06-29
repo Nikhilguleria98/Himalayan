@@ -30,9 +30,9 @@ const HeroSection = () => {
   const handleSearch = () => {
     const trimmed = searchQuery.trim();
     if (trimmed) {
-      navigate(`/package?q=${encodeURIComponent(trimmed)}`);
+      navigate(`/discoverTrips?q=${encodeURIComponent(trimmed)}`);
     } else {
-      navigate("/package");
+      navigate("/discoverTrips");
     }
   };
 

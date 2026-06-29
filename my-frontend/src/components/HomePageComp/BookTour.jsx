@@ -24,7 +24,7 @@ const BookTour = () => {
             <span className="text-[#0C8699]">Today!</span>
           </p>
           <button
-            onClick={() => navigate("/destinations")}
+            onClick={() => navigate("/discoverTrips")}
             className="text-md px-4 py-1 z-10 sm:px-[1.5vw] sm:py-[0.5vw] sm:text-[1.2vw] font-medium rounded-full text-white bg-[#0C8699] hover:bg-[#097480] transition">
             Book Now!
           </button>

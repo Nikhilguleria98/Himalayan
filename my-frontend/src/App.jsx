@@ -20,6 +20,7 @@ import Spirtiualtours from './app/spiritualTours/page'
 import Destinations from './app/destinations/page'
 // import Carddetail from '../../my-frontend/src/app/Carddetail/page';
 import BikeTour from './app/biketour/page';
+import DiscoverTrips from './app/discoverTrips/page';
 import DashboardLayout from './app/Dashboard/layout';
 import DashboardPage from './app/Dashboard/page';
 import NewListingPage from './app/Dashboard/new/page';
@@ -28,7 +29,6 @@ import AdminUsersPage from './app/Dashboard/users/page';
 import AdminUserDetailPage from './app/Dashboard/users/[userId]/page';
 import UserDashboardPage from './app/user-dashboard/page';
 import UserProfilePage from './app/profile/page';
-
 
 
 
@@ -56,6 +56,7 @@ export default function App() {
         <Route path="/destinations" element={<Destinations />} />
         {/* <Route path="/carddetail" element={<Carddetail />} /> */}
         <Route path="/biketour" element={<BikeTour />} />
+        <Route path="/discoverTrips" element={<DiscoverTrips />} />
         <Route path="/user-dashboard" element={<UserDashboardPage />} />
         <Route path="/profile" element={<UserProfilePage />} />
         <Route path="/Dashboard" element={<DashboardLayout />}>

@@ -52,7 +52,7 @@ const Blogs = () => {
             Our Latest <span className="text-[#0C8699]">Blogs</span>
           </h2>
           <Link
-            to="/package"
+            to="/discoverTrips"
             className="bg-[#0C8699] text-white px-4 py-2 text-[16px] hover:bg-teal-600 transition-colors rounded-full"
           >
             View All Packages

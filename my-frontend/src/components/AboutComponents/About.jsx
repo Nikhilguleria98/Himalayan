@@ -27,7 +27,7 @@ export default function AboutSection() {
           </p>
           <div className="pt-4">
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/DiscoverTrips")}
               className="bg-[#0C8699] text-white rounded-full px-6 py-2 hover:bg-[#097480] transition"
             >
               Book Your Trip

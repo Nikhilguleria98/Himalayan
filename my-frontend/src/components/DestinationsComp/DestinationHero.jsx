@@ -16,7 +16,7 @@ const DestinationHero = () => {
             Explore the hidden wonders of Meghalaya — from living root bridges and mystical caves to sparkling waterfalls and serene villages. Our curated trips let you experience the vibrant culture, natural beauty, and offbeat trails of the Abode of Clouds. Whether you’re chasing clouds in Cherrapunji or boating through crystal-clear waters in Dawki, we promise an adventure that’s soulful, safe, and unforgettable.
           </p>
           <button 
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/DiscoverTrips")}
             className="text-md px-4 py-1 z-10 sm:px-[1.5vw] sm:py-[0.5vw] sm:text-[1.2vw] font-medium rounded-full text-white bg-[#0C8699] hover:bg-[#097480] transition">
             Book Your Trip
           </button>
