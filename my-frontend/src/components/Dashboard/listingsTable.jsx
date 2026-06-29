@@ -53,7 +53,7 @@ export function ListingsTable({ initialListings, deleteListing }) {
             listings.map((listing, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{listing.title}</TableCell>
-                <TableCell>${listing.price}</TableCell>
+                <TableCell>{import.meta.env.VITE_CURRENCY_SYMBOL}{listing.price}</TableCell>
                 <TableCell>{formatDate(listing.createdAt)}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>
