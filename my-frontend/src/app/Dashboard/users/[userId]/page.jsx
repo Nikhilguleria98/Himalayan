@@ -65,15 +65,15 @@ const getBookingTotal = (order) =>
 /* ─── Stat card ─── */
 function StatCard({ icon: Icon, label, value, accent }) {
   return (
-    <div className="rounded-xl border bg-white p-5 shadow-sm flex items-center gap-4">
+    <div className="rounded-xl border bg-white p-4 sm:p-5 shadow-sm flex items-center gap-4 min-w-0">
       <span
         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ${accent}`}
       >
         <Icon className="h-6 w-6" />
       </span>
-      <div>
-        <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
+      <div className="min-w-0 flex-1 overflow-hidden">
+        <p className="text-sm text-muted-foreground font-medium truncate">{label}</p>
+        <p className="text-xl sm:text-2xl font-bold text-gray-900 truncate">{value}</p>
       </div>
     </div>
   );
@@ -82,13 +82,18 @@ function StatCard({ icon: Icon, label, value, accent }) {
 /* ─── Info row ─── */
 function InfoRow({ icon: Icon, label, value }) {
   return (
-    <div className="flex items-center gap-4 rounded-lg border bg-gray-50 px-5 py-4">
+    <div className="flex items-center gap-3.5 rounded-lg border bg-gray-50 p-3.5 sm:p-4 min-w-0 w-full shadow-xs">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-700">
         <Icon className="h-4 w-4" />
       </span>
-      <div>
-        <p className="text-xs text-muted-foreground">{label}</p>
-        <p className="text-sm font-semibold text-gray-900">{value || "—"}</p>
+      <div className="min-w-0 flex-1 overflow-hidden">
+        <p className="text-xs text-muted-foreground font-medium truncate">{label}</p>
+        <div
+          className="text-sm font-semibold text-gray-900 truncate tracking-tight"
+          title={typeof value === "string" ? value : undefined}
+        >
+          {value || "—"}
+        </div>
       </div>
     </div>
   );
@@ -161,20 +166,20 @@ export default function AdminUserDetailPage() {
       </DashboardHeader>
 
       {/* ── User profile card ── */}
-      <Card className="rounded-xl shadow-sm">
+      <Card className="rounded-xl shadow-sm overflow-hidden">
         <CardHeader>
-          <div className="flex items-center gap-5">
-            <span className="flex h-16 w-16 items-center justify-center rounded-xl bg-teal-600 text-white shadow">
-              <UserCircle className="h-9 w-9" />
+          <div className="flex items-center gap-4 sm:gap-5 min-w-0">
+            <span className="flex h-14 w-14 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-xl bg-teal-600 text-white shadow">
+              <UserCircle className="h-8 w-8 sm:h-9 sm:w-9" />
             </span>
-            <div>
-              <CardTitle className="text-xl">{selectedUser.userName}</CardTitle>
-              <CardDescription className="text-base">{selectedUser.email}</CardDescription>
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <CardTitle className="text-lg sm:text-xl truncate">{selectedUser.userName}</CardTitle>
+              <CardDescription className="text-sm sm:text-base truncate">{selectedUser.email}</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <InfoRow icon={Mail} label="Email Address" value={selectedUser.email} />
             <InfoRow icon={Phone} label="Phone Number" value={selectedUser.phone} />
             <InfoRow
@@ -196,7 +201,7 @@ export default function AdminUserDetailPage() {
       </Card>
 
       {/* ── Booking stats ── */}
-      <div className="grid gap-4 sm:grid-cols-3 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
         <StatCard
           icon={PackageCheck}
           label="Total Bookings"
@@ -218,7 +223,7 @@ export default function AdminUserDetailPage() {
       </div>
 
       {/* ── Bookings table ── */}
-      <div className="mt-6 rounded-xl border shadow-sm overflow-hidden">
+      <div className="mt-6 rounded-xl border shadow-sm overflow-hidden bg-white">
         <div className="bg-gray-50 px-5 py-3 border-b">
           <h2 className="font-semibold text-gray-800 flex items-center gap-2">
             <Users className="h-4 w-4 text-teal-600" />
@@ -226,93 +231,95 @@ export default function AdminUserDetailPage() {
           </h2>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-white">
-              <TableHead>#</TableHead>
-              <TableHead>Package</TableHead>
-              <TableHead>Travelers</TableHead>
-              <TableHead>Traveler Names</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Payment</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Booked On</TableHead>
-              <TableHead className="text-right">Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {orders.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
-                  No bookings found for this user.
-                </TableCell>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-white">
+                <TableHead>#</TableHead>
+                <TableHead>Package</TableHead>
+                <TableHead>Travelers</TableHead>
+                <TableHead>Traveler Names</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Payment</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Booked On</TableHead>
+                <TableHead className="text-right">Action</TableHead>
               </TableRow>
-            ) : (
-              orders.map((order, idx) => {
-                const isConfirmed = order.orderStatus === "Confirmed";
-                const travelerNames = order.travelers?.map((t) => t.name).join(", ");
+            </TableHeader>
+            <TableBody>
+              {orders.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={9} className="h-24 text-center text-muted-foreground">
+                    No bookings found for this user.
+                  </TableCell>
+                </TableRow>
+              ) : (
+                orders.map((order, idx) => {
+                  const isConfirmed = order.orderStatus === "Confirmed";
+                  const travelerNames = order.travelers?.map((t) => t.name).join(", ");
 
-                return (
-                  <TableRow key={order._id}>
-                    <TableCell className="font-medium text-muted-foreground">
-                      {idx + 1}
-                    </TableCell>
-                    <TableCell>
-                      <div className="font-medium max-w-[200px] truncate">
-                        {getPackageTitle(order)}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      {order.travelers?.length || order.quantity || 0}
-                    </TableCell>
-                    <TableCell className="max-w-[180px]">
-                      <p className="truncate text-sm text-muted-foreground">
-                        {travelerNames || "—"}
-                      </p>
-                    </TableCell>
-                    <TableCell className="font-semibold">
-                      {formatCurrency(getBookingTotal(order))}
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        variant={order.paymentStatus === "Paid" ? "default" : "outline"}
-                      >
-                        {order.paymentStatus || "Pending"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={isConfirmed ? "default" : "secondary"}>
-                        {order.orderStatus || "Processing"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <CalendarDays className="h-3.5 w-3.5" />
-                        {formatDate(order.createdAt)}
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        size="sm"
-                        variant={isConfirmed ? "secondary" : "default"}
-                        disabled={isConfirmed || isUpdating}
-                        onClick={() => handleApprove(order._id)}
-                        className={
-                          !isConfirmed
-                            ? "bg-teal-600 hover:bg-teal-700 text-white"
-                            : ""
-                        }
-                      >
-                        <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />
-                        {isConfirmed ? "Approved" : "Approve"}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+                  return (
+                    <TableRow key={order._id}>
+                      <TableCell className="font-medium text-muted-foreground">
+                        {idx + 1}
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-medium max-w-[200px] truncate">
+                          {getPackageTitle(order)}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {order.travelers?.length || order.quantity || 0}
+                      </TableCell>
+                      <TableCell className="max-w-[180px]">
+                        <p className="truncate text-sm text-muted-foreground">
+                          {travelerNames || "—"}
+                        </p>
+                      </TableCell>
+                      <TableCell className="font-semibold">
+                        {formatCurrency(getBookingTotal(order))}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={order.paymentStatus === "Paid" ? "default" : "outline"}
+                        >
+                          {order.paymentStatus || "Pending"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant={isConfirmed ? "default" : "secondary"}>
+                          {order.orderStatus || "Processing"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <CalendarDays className="h-3.5 w-3.5" />
+                          {formatDate(order.createdAt)}
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button
+                          size="sm"
+                          variant={isConfirmed ? "secondary" : "default"}
+                          disabled={isConfirmed || isUpdating}
+                          onClick={() => handleApprove(order._id)}
+                          className={
+                            !isConfirmed
+                              ? "bg-teal-600 hover:bg-teal-700 text-white"
+                              : ""
+                          }
+                        >
+                          <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />
+                          {isConfirmed ? "Approved" : "Approve"}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </DashboardShell>
   );
