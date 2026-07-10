@@ -4,6 +4,7 @@ import DestinationSlider from "../../components/DestinationsComp/DestinationSlid
 // import ClientSay from "../../components/HomePageComp/ClientSay";
 import Blogs from "../../components/HomePageComp/Blogs";
 import WhyHimalayan from "../../components/HomePageComp/WhyHimalayan";
+import CategoryPackagesSection from "../../components/PackagePageComp/CategoryPackagesSection";
 
 const SpiritualTours = () => {
   const tours = [
@@ -63,6 +64,12 @@ const SpiritualTours = () => {
           </div>
         </div>
       </div>
+
+      <CategoryPackagesSection
+        tag="spiritual"
+        title="Spiritual Tours"
+        description="Quiet, meaningful journeys that blend pilgrimage, reflection, and Himalayan beauty."
+      />
 
       {/* Tours Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">

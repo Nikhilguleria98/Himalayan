@@ -6,6 +6,7 @@ import Blogs from "../../components/HomePageComp/Blogs";
 import WhyHimalayan from "../../components/HomePageComp/WhyHimalayan";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import CategoryPackagesSection from "../../components/PackagePageComp/CategoryPackagesSection";
 
 const BikeTour = () => {
   return (
@@ -43,6 +44,11 @@ const BikeTour = () => {
         </div>
       </div>
 
+      <CategoryPackagesSection
+        tag="bike"
+        title="Bike Tours"
+        description="Handpicked biking adventures tailored for riders who want to explore the mountains and scenic routes."
+      />
       <TourBooking />
       <Recomended />
       <DestinationSlider />

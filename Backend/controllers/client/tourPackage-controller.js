@@ -2,7 +2,7 @@ import tourPackages from "../../models/tourPackages.js";
 
 export const getFilteredTourPackages = async (req, res) => {
     try {
-      const { category = [], brand = []} = req.query;
+      const { category = [], brand = [], tag } = req.query;
   
       let filters = {};
   
@@ -12,6 +12,10 @@ export const getFilteredTourPackages = async (req, res) => {
   
       if (brand.length) {
         filters.brand = { $in: brand.split(",") };
+      }
+
+      if (tag) {
+        filters.tag = tag.toString().trim().toLowerCase();
       }
 
       let sort = {};

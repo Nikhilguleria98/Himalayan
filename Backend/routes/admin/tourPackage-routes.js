@@ -1,5 +1,5 @@
 import express from "express"
-import {addTourPackage,getTourPackage,editTourPackage,deleteTourPackageById,upload,uploadFields,uploadTourPackageImage} from "../../controllers/admin/tourPackage-controller.js"
+import {addTourPackage,getTourPackage,editTourPackage,deleteTourPackageById,upload,uploadFields,uploadTourPackageImage,getPackageTags} from "../../controllers/admin/tourPackage-controller.js"
 import { authMiddleware } from "../../controllers/auth/auth-controller.js"
 
 
@@ -20,6 +20,7 @@ router.post("/add", authMiddleware, requireAdmin, uploadFields, addTourPackage);
 
 router.post("/upload-image", authMiddleware, requireAdmin, upload.single("file"), uploadTourPackageImage);
 
+router.get("/tags", authMiddleware, requireAdmin, getPackageTags);
 router.get("/get/", getTourPackage);
 
 router.put("/edit/:id", authMiddleware, requireAdmin, editTourPackage);

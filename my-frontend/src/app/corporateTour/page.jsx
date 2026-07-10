@@ -7,6 +7,7 @@ import Section5 from '../../components/corporateTourComponent/section5';
 import Section6 from '../../components/corporateTourComponent/Section6';
 import Gallery from '../../components/CyclingComp/Gallery';
 import Blogs from '../../components/HomePageComp/Blogs';
+import CategoryPackagesSection from '../../components/PackagePageComp/CategoryPackagesSection';
 import GetinTouch from '../../components/corporateTourComponent/GetinTouch';
 
 const CorporateTourPage = () => {
@@ -14,6 +15,11 @@ const CorporateTourPage = () => {
     <>
       <CopHero />
       <Section2 />
+      <CategoryPackagesSection
+        tag="corporate"
+        title="Corporate Tours"
+        description="Professional, comfortable, and well-organized trips for teams and events."
+      />
       <Section3 />
       {/* <ClientSay /> */}
       <Section5 />

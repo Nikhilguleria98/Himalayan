@@ -4,11 +4,17 @@ import DestinationSlider from "../../components/DestinationsComp/DestinationSlid
 // import ClientSay from "../../components/HomePageComp/ClientSay"
 import WhyHimalayan from "../../components/HomePageComp/WhyHimalayan";
 import Blogs from "../../components/HomePageComp/Blogs";
+import CategoryPackagesSection from "../../components/PackagePageComp/CategoryPackagesSection";
 
 export default function Page() {
   return (
     <div>
       <Hero />
+      <CategoryPackagesSection
+        tag="student"
+        title="Student Tours"
+        description="Adventure-filled educational trips for groups, colleges, and young explorers."
+      />
       <Recomended />
       <DestinationSlider />
       {/* <ClientSay /> */}

@@ -2,12 +2,23 @@ import tourPackages from "../../models/tourPackages.js";
 import { imageUploadUtil } from "../../helpers/cloudinary.js";
 import multer from "multer";
 
+export const PACKAGE_TAGS = ["bike", "cycle", "corporate", "spiritual", "student", "transport"];
+
 const storage = multer.memoryStorage();
 export const upload = multer({ storage });
 
 export const uploadFields = upload.fields([
   { name: "gallery", maxCount: 10 },
 ]);
+
+export const getPackageTags = async (req, res) => {
+  try {
+    res.status(200).json({ success: true, data: PACKAGE_TAGS });
+  } catch (err) {
+    console.error("Get Package Tags Error:", err);
+    res.status(500).json({ success: false, message: "Failed to fetch package tags" });
+  }
+};
 
 export const uploadTourPackageImage = async (req, res) => {
   try {
@@ -40,6 +51,7 @@ export const addTourPackage = async (req, res) => {
   try {
     const {
       title,
+      tag,
       description,
       price,
       salePrice,
@@ -85,8 +97,11 @@ export const addTourPackage = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid thingsToPack format" });
     }
 
+    const normalizedTag = typeof tag === "string" ? tag.trim().toLowerCase() : undefined;
+
     const newTour = new tourPackages({
       title,
+      tag: normalizedTag,
       gallery,
       description,
       price,
@@ -130,6 +145,7 @@ export const editTourPackage = async (req, res) => {
 
     const {
       title,
+      tag,
       description,
       price,
       salePrice,
@@ -157,11 +173,13 @@ export const editTourPackage = async (req, res) => {
     }
 
     const thingsToPack = JSON.parse(req.body.thingsToPack || "[]");
+    const normalizedTag = typeof tag === "string" ? tag.trim().toLowerCase() : undefined;
 
     const updatedPackage = await tourPackages.findByIdAndUpdate(
       id,
       {
         title,
+        tag: normalizedTag,
         gallery: gallery.length ? gallery : undefined,
         description,
         price,

@@ -4,6 +4,10 @@ const PackageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    tag: {
+        type: String,
+        required: false,
+    },
     gallery: {
         type: [String],
         required: true,

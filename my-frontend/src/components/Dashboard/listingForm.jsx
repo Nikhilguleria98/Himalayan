@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"; // replaces next/navigation
@@ -20,12 +20,14 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { API_BASE_URL } from "../../lib/api";
 
 
 const formSchema = z.object({
   title: z.string().min(2, {
     message: "Title must be at least 2 characters.",
   }),
+  tag: z.string().optional(),
   description: z
     .string()
     .min(10, {
@@ -146,6 +148,7 @@ export function ListingForm({ id }) {
   const navigate = useNavigate()
   const [images, setImages] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [availableTags, setAvailableTags] = useState([])
   const dispatch = useDispatch()
 
   // Add state for managing dynamic arrays
@@ -159,6 +162,27 @@ export function ListingForm({ id }) {
   const [placesToVisitCount, setPlacesToVisitCount] = useState(1)
   const [thingsToDoCount, setThingsToDoCount] = useState(1)
 
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const token = JSON.parse(sessionStorage.getItem("token") || "null");
+        const response = await fetch(`${API_BASE_URL}/api/admin/package/tags`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+          setAvailableTags(Array.isArray(data.data) ? data.data : []);
+        }
+      } catch (err) {
+        console.error("Failed to load package tags", err);
+      }
+    };
+
+    fetchTags();
+  }, []);
+
   // Get listing data if editing
   const existingListing = id 
 
@@ -167,6 +191,7 @@ export function ListingForm({ id }) {
     defaultValues: existingListing
       ? {
           title: existingListing.title || "",
+          tag: existingListing.tag || "",
           description: existingListing.description || "",
           price: existingListing.price || 0,
           salePrice: existingListing.salePrice || 0,
@@ -187,6 +212,7 @@ export function ListingForm({ id }) {
         }
       : {
           title: "",
+          tag: "",
           description: "",
           price: 0,
           salePrice: 0,
@@ -282,6 +308,32 @@ export function ListingForm({ id }) {
                   )}
                 />
               </div>
+
+              <FormField
+                control={form.control}
+                name="tag"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tag</FormLabel>
+                    <FormControl>
+                      <select
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                      >
+                        <option value="">Choose a tag</option>
+                        {availableTags.map((tag) => (
+                          <option key={tag} value={tag}>
+                            {tag}
+                          </option>
+                        ))}
+                      </select>
+                    </FormControl>
+                    <FormDescription>Choose one category tag so the package appears on the matching page.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               {/* Package Description */}
               <FormField
