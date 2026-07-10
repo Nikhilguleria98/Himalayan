@@ -1,96 +1,98 @@
-import React from "react";
-// If you're using React Router for navigation:
-import { Link } from "react-router-dom"; 
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { API_BASE_URL } from "../../lib/api";
 
 export default function Blog() {
-  const featuredArticles = [
-    {
-      title: "Cycling Through the Himalayas: A Ride to Remember",
-      date: "04-02-2024",
-      time: "10 min read",
-      image: '/assets/cycling.png',
-      description:
-        "Explore the untouched trails and high-altitude paths of the Himalayas by bike. A perfect blend of thrill, endurance, and breathtaking views awaits you.",
-    },
-    {
-      title: "Soul Searching in Spiti: A Winter Escape",
-      date: "16-01-2024",
-      time: "7 min read",
-      image: '/assets/cycling.png',
-      description:
-        "Uncover the tranquil beauty of Spiti Valley during winter. Discover monasteries, snow-covered landscapes, and silence that speaks to your soul.",
-    },
-    {
-      title: "Top 5 Local Dishes You Must Try in Nako",
-      date: "28-12-2023",
-      time: "4 min read",
-      image: '/assets/cycling.png',
-      description:
-        "From steaming momos to buttery thukpa, here’s what not to miss when dining like a local in Nako – the heart of Himachal’s hidden flavors.",
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const blogEntries = [
-    {
-      title: "Journey to Nako: The Hidden Gem of Himachal",
-      description:
-        "Tucked away from the tourist chaos, Nako village is a quiet retreat for those looking to reconnect with nature and themselves.",
-      date: "04",
-      month: "MAR",
-    },
-    {
-      title: "Why You Should Travel Solo at Least Once",
-      description:
-        "Solo trips aren’t just about being alone — they’re about discovering your truest self through the mountains.",
-      date: "12",
-      month: "FEB",
-    },
-    {
-      title: "The Sacred Trails: Trekking to Ancient Monasteries",
-      description:
-        "Follow paths less traveled and find peace where spirituality and landscape meet in the remote Himalayas.",
-      date: "25",
-      month: "JAN",
-    },
-    {
-      title: "How to Prepare for High-Altitude Adventures",
-      description:
-        "Essential tips and tricks to stay safe, fit, and ready for your next Himalayan expedition.",
-      date: "19",
-      month: "DEC",
-    },
-    {
-      title: "Top Eco-Friendly Travel Practices You Should Follow",
-      description:
-        "Respect the land you explore. Learn how to travel sustainably while enjoying pristine mountain beauty.",
-      date: "06",
-      month: "DEC",
-    },
-    {
-      title: "A Local’s Guide to the Best Spots in Himachal",
-      description:
-        "Get insider tips on where to eat, stay, and wander — from cozy cafés to breathtaking viewpoints.",
-      date: "22",
-      month: "NOV",
-    },
-    {
-      title: "Traveling on a Budget: Himalayan Edition",
-      description:
-        "Want adventure without breaking the bank? Here's how to explore Himachal affordably.",
-      date: "03",
-      month: "NOV",
-    },
-    {
-      title: "Capturing the Himalayas: Photography Tips for Beginners",
-      description:
-        "Learn how to frame the perfect mountain shot and capture the soul of the highlands.",
-      date: "15",
-      month: "OCT",
-    },
-  ];
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/client/blog?limit=12`);
+        const data = await res.json();
+        if (data.success) {
+          setBlogs(data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching blogs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  // First 3 blogs are featured, others are in main grid
+  const featuredArticles = blogs.slice(0, 3);
+  const blogEntries = blogs.slice(3);
+
+  const getMonthAbbreviation = (dateStr) => {
+    if (!dateStr) return "MAR";
+    const date = new Date(dateStr);
+    return date.toLocaleString("en-IN", { month: "short" }).toUpperCase();
+  };
+
+  const getDayString = (dateStr) => {
+    if (!dateStr) return "01";
+    const date = new Date(dateStr);
+    return date.getDate().toString().padStart(2, "0");
+  };
+
+  const formatFullDate = (dateStr) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="py-8 bg-gray-50 min-h-screen">
+        <div className="responsivewidth space-y-12">
+          {/* Header Skeleton */}
+          <div className="flex flex-col md:flex-row justify-between gap-8 mb-12">
+            <div className="w-full md:w-1/2 space-y-4 animate-pulse">
+              <div className="h-10 bg-gray-200 rounded w-3/4" />
+              <div className="h-6 bg-gray-200 rounded w-full" />
+              <div className="h-20 bg-gray-200 rounded w-1/2" />
+            </div>
+            <div className="w-full md:w-1/2 max-w-lg space-y-4">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="flex gap-4 animate-pulse">
+                  <div className="w-[163px] h-24 bg-gray-200 rounded-md" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-1/3" />
+                    <div className="h-6 bg-gray-200 rounded w-5/6" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Main Grid Skeleton */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="bg-white rounded-lg overflow-hidden shadow-sm animate-pulse">
+                <div className="h-48 bg-gray-200" />
+                <div className="p-4 space-y-3">
+                  <div className="h-6 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-full" />
+                  <div className="h-4 bg-gray-200 rounded w-5/6" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className='py-8 bg-gray-50'>
+    <div className='py-8 bg-gray-50 min-h-screen'>
       {/* Header Section */}
       <div className='flex responsivewidth flex-col md:flex-row justify-between gap-8 mb-12'>
         <div className='w-full md:w-1/2 flex justify-center items-start flex-col'>
@@ -114,29 +116,28 @@ export default function Blog() {
         {/* Featured Articles */}
         <div className='w-full md:w-1/2 max-w-lg space-y-4'>
           {featuredArticles.map((item, index) => (
-            <div
-              key={index}
-              className='flex border-b-[2px] border-gray-200 pb-2 gap-2 lg:gap-4 items-center'
+            <Link
+              key={item._id}
+              to={`/blog/${item.slug}`}
+              className='flex border-b-[2px] border-gray-200 pb-2 gap-2 lg:gap-4 items-center group block'
             >
-              <div className='w-[163px] relative flex-shrink-0'>
+              <div className='w-[163px] relative flex-shrink-0 overflow-hidden rounded-md h-24'>
                 <img
-                  src={item.image}
+                  src={item.images && item.images[0] ? item.images[0].url : '/assets/cycling.png'}
                   alt={item.title}
-                  width={300}
-                  height={200}
-                  className='w-full h-full rounded-md object-cover'
+                  className='w-full h-full rounded-md object-cover transform group-hover:scale-105 transition-transform duration-300'
                 />
               </div>
               <div className='flex-1'>
                 <div className='flex justify-between text-base font-normal text-gray-500 font-poppins leading-[30px]'>
-                  <span>{item.date}</span>
-                  <span>{item.time}</span>
+                  <span>{formatFullDate(item.publishedAt || item.createdAt)}</span>
+                  <span>{item.readingTime || 5} min read</span>
                 </div>
-                <h3 className='justify-start text-black text-lg lg:text-xl font-semibold font-poppins leading-[30px]'>
+                <h3 className='justify-start text-black text-lg lg:text-xl font-semibold font-poppins leading-[30px] group-hover:text-[#0c8699] transition-colors'>
                   {item.title}
                 </h3>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -144,34 +145,37 @@ export default function Blog() {
       {/* Main Blog Grid */}
       <div className='grid responsivewidth mt-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
         {blogEntries.map((entry, index) => (
-          <div
-            key={index}
-            className='bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow'
+          <motion.div
+            key={entry._id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.05 }}
+            className='bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col h-full'
           >
-            <div className='relative'>
-              <img
-                src='/assets/himalya.png'
-                alt={entry.title}
-                width={300}
-                height={200}
-                className='w-full h-48 object-cover'
-              />
-              <div className='absolute bottom-3 -left-0.5 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded'>
-                <div className='text-center'>
-                  <span>{entry.date}</span>
-                  <div className='text-[10px]'>{entry.month}</div>
+            <Link to={`/blog/${entry.slug}`} className="flex flex-col h-full">
+              <div className='relative h-48 overflow-hidden'>
+                <img
+                  src={entry.images && entry.images[0] ? entry.images[0].url : '/assets/himalya.png'}
+                  alt={entry.title}
+                  className='w-full h-full object-cover transform hover:scale-105 transition-transform duration-500'
+                />
+                <div className='absolute bottom-3 -left-0.5 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded'>
+                  <div className='text-center'>
+                    <span>{getDayString(entry.publishedAt || entry.createdAt)}</span>
+                    <div className='text-[10px]'>{getMonthAbbreviation(entry.publishedAt || entry.createdAt)}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className='p-4'>
-              <h3 className='justify-start text-black text-xl font-semibold font-poppins leading-[30px] mb-2'>
-                {entry.title}
-              </h3>
-              <p className='text-gray-600 justify-start text-Color-2 text-base font-normal font-poppins leading-[30px]'>
-                {entry.description}
-              </p>
-            </div>
-          </div>
+              <div className='p-4 flex flex-col flex-1'>
+                <h3 className='justify-start text-black text-xl font-semibold font-poppins leading-[30px] mb-2 line-clamp-2 hover:text-[#0c8699] transition-colors'>
+                  {entry.title}
+                </h3>
+                <p className='text-gray-600 justify-start text-Color-2 text-base font-normal font-poppins leading-[30px] line-clamp-3'>
+                  {entry.shortDescription}
+                </p>
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
 
@@ -187,3 +191,4 @@ export default function Blog() {
     </div>
   );
 }
+
