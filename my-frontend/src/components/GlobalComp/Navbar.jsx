@@ -1,10 +1,8 @@
+import { ChevronDown, Menu, UserCircle, X } from "lucide-react";
 import React, { useState } from "react";
-import { Menu, X, Search, ChevronDown, UserCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser, resetTokenAndCredentials } from "../../store/auth-slice";
-import { Link } from "react-router-dom";
-
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
@@ -13,6 +11,7 @@ const navLinks = [
   { name: "Blog", href: "/Blog" },
   { name: "Contact", href: "/Contact" },
   { name: "More", href: "" },
+  {name : "Discover Trips" , href:"/discoverTrips"}
 ];
 
 export default function Navbar() {
