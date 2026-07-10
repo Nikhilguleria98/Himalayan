@@ -15,7 +15,7 @@ const navLinks = [
   { name: "More", href: "" },
 ];
 
-export default function Navbar() {
+export default function () {
   const [isOpen, setIsOpen] = useState(false);
   const [isPackageOpen, setIsPackageOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
