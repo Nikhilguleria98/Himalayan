@@ -257,7 +257,7 @@ export default function PackageDetail() {
           */}
           <div
             ref={bookingRef}
-            className="w-full shrink-0 lg:w-[380px] lg:self-start lg:sticky lg:top-[96px]"
+            className="w-full shrink-0 lg:w-[380px] lg:self-start lg:sticky lg:top-[55px]"
           >
             <BookingCard
               trip={trip}
