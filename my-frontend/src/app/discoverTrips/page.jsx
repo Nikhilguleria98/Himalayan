@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { fetchAllPackages } from "../../store/client/tourPackage-slice";
-import 
 const CURRENCY = import.meta.env.VITE_CURRENCY_SYMBOL || "₹";
 
 const SORT_OPTIONS = [
@@ -130,12 +129,16 @@ export default function DiscoverTrips() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f0fafb] to-white">
       {/* Hero Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-teal-700 via-teal-600 to-emerald-600 py-16 md:py-24">
-        <div className="absolute inset-0 opacity-10">
+      <div className="relative overflow-hidden bg-slate-950 py-16 md:py-24">
+        <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
-        backgroundImage: `url(${})`,
-
+            backgroundImage: `url('/images/discoverTrips/discover.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }} />
+          {/* Dark overlay to ensure text readability without green tint */}
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="responsivewidth relative z-10 text-center">
           <motion.h1
