@@ -7,6 +7,7 @@ import AdminLogin from './app/AdminLogin/page';
 import SignUp from './app/Signup/page';
 import VerifyEmailPage from './app/verify-email/page';
 import Blog from './app/Blog/page';
+import BlogDetails from './app/Blog/BlogDetails';
 import Contact from './app/Contact/page';
 import CorporateTour from './app/corporateTour/page';
 import Cycling from './app/Cycling/page';
@@ -23,6 +24,7 @@ import BikeTour from './app/biketour/page';
 import DiscoverTrips from './app/discoverTrips/page';
 import DashboardLayout from './app/Dashboard/layout';
 import DashboardPage from './app/Dashboard/page';
+import BlogEditor from './app/Dashboard/blogs/page';
 import NewListingPage from './app/Dashboard/new/page';
 import EditListingPage from './app/Dashboard/edit/[id]/page';
 import AdminUsersPage from './app/Dashboard/users/page';
@@ -43,6 +45,7 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/Blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/corporateTour" element={<CorporateTour />} />
         <Route path="/Cycling" element={<Cycling />} />
@@ -63,8 +66,13 @@ export default function App() {
           <Route index element={<DashboardPage />} />
           <Route path="new" element={<NewListingPage />} />
           <Route path="edit/:id" element={<EditListingPage />} />
+          <Route path="blogs/new" element={<BlogEditor />} />
+          <Route path="blogs/edit/:id" element={<BlogEditor />} />
           <Route path="users" element={<AdminUsersPage />} />
           <Route path="users/:userId" element={<AdminUserDetailPage />} />
+        </Route>
+        <Route path="/admin/blog/create" element={<DashboardLayout />}>
+          <Route index element={<BlogEditor />} />
         </Route>
       </Route>
 
