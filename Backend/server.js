@@ -19,6 +19,8 @@ import clientSearchRouter from './routes/client/search-routes.js'
 import clientTourPackageRouter from './routes/client/tourPackage-routes.js'
 import clientContactRouter from './routes/client/contact-routes.js'
 import { seedAdminUser } from "./helpers/seedAdmin.js"
+import adminBlogRouter from "./routes/admin/blog-routes.js";
+import clientBlogRouter from "./routes/client/blog-routes.js";
 // import { verifyEmailService } from "./helpers/sendEmail.js"
 
 mongoose
@@ -82,6 +84,8 @@ app.use("/api/client/review",clientReviewRouter);
 app.use("/api/client/search",clientSearchRouter);
 app.use("/api/client/package",clientTourPackageRouter);
 app.use("/api/client/contact",clientContactRouter);
+app.use("/api/admin/blog", adminBlogRouter);
+app.use("/api/client/blog", clientBlogRouter);
 
 app.listen(PORT, () => console.log(`Server is now running on port : ${PORT}`));
 
