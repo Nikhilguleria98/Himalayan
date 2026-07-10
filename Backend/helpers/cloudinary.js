@@ -35,7 +35,16 @@ const uploadBuffer = (fileBuffer) => {
 
 export async function imageUploadUtil(fileOrFiles) {
   const files = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles];
+  if (files.length > 4) {
+    throw new Error("You can upload a maximum of 4 images.");
+  }
   return Promise.all(files.map(uploadBuffer));
 }
 
-export const upload = multer({ storage }).array('files');
+export const upload = multer({
+  storage,
+  limits: {
+    files: 4, // Maximum 4 files
+    fileSize: 5 * 1024 * 1024, //5 MB per image
+  },
+}).array("files", 4);
