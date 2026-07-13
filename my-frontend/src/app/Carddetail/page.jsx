@@ -314,4 +314,4 @@ export default function PackageDetail() {
       <CTASection onBookNow={scrollToBooking} />
     </motion.div>
   );
-}
+} 
