@@ -113,7 +113,7 @@ export default function Contact() {
                 </h3>
               </div>
               <p className="self-stretch justify-start text-black text-xl font-normal font-poppins">
-                +91 7876750072
+                +91 9736442270, 8219093557, 9805844365
               </p>
             </div>
 
