@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { formatPrice, getListingPrice } from "../../lib/listingPrice";
 
 export function ListingsTable({ initialListings, deleteListing }) {
   const [listings, setListings] = useState(initialListings);
@@ -53,7 +54,9 @@ export function ListingsTable({ initialListings, deleteListing }) {
             listings.map((listing, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{listing.title}</TableCell>
-                <TableCell>{import.meta.env.VITE_CURRENCY_SYMBOL}{listing.price}</TableCell>
+                <TableCell>
+                  {formatPrice(getListingPrice(listing)) || "Price on request"}
+                </TableCell>
                 <TableCell>{formatDate(listing.createdAt)}</TableCell>
                 <TableCell className="text-right">
                   <DropdownMenu>

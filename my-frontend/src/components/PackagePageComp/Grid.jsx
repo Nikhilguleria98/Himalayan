@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPackages } from "../../store/client/tourPackage-slice";
 import { API_BASE_URL } from "../../lib/api";
+import { formatPrice, getListingPrice } from "../../lib/listingPrice";
 
 const Grid = () => {
   const [visibleItems, setVisibleItems] = useState(6);
@@ -68,7 +69,7 @@ const Grid = () => {
 
   const renderCard = (item) => {
     const image = item.gallery?.[0] || "/placeholder.svg";
-    const price = Number(item.salePrice || item.price || 0);
+    const price = getListingPrice(item);
 
     return (
       <Link
@@ -96,15 +97,9 @@ const Grid = () => {
           </h3>
           <div className="mt-1 flex items-center justify-between gap-3 text-sm text-white">
             <span>{item.averageReview || 5}/5 Reviews</span>
-            {price > 0 && (
-              <span className="font-semibold">
-                <p className="text-teal-600 text-sm font-bold">
-                    {price > 0
-                      ? `${import.meta.env.VITE_CURRENCY_SYMBOL}${price.toLocaleString("en-IN")}`
-                      : "Price on request"}
-                  </p> {price.toLocaleString("en-IN")}
-              </span>
-            )}
+            <span className="font-semibold">
+              {formatPrice(price) || "Price on request"}
+            </span>
           </div>
         </div>
       </Link>

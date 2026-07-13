@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"; // replaces next/navigation
 import * as z from "zod";
 import { ImageUploader } from "../../components/Dashboard/imageUploader";
 import { addNewPackage } from "../../store/admin/tourPackage-slice";
+import { CURRENCY_SYMBOL } from "../../lib/listingPrice";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import {
@@ -361,7 +362,7 @@ export function ListingForm({ id }) {
                       <FormLabel>Price</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <span className="absolute left-3 top-2.5"> {import.meta.env.VITE_CURRENCY_SYMBOL} </span>
+                          <span className="absolute left-3 top-2.5"> {CURRENCY_SYMBOL} </span>
                           <Input type="number" placeholder="0.00" className="pl-7" {...field} />
                         </div>
                       </FormControl>
@@ -379,7 +380,7 @@ export function ListingForm({ id }) {
                       <FormLabel>Sale Price</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <span className="absolute left-3 top-2.5">{import.meta.env.VITE_CURRENCY_SYMBOL}</span>
+                          <span className="absolute left-3 top-2.5">{CURRENCY_SYMBOL}</span>
                           <Input type="number" placeholder="0.00" className="pl-7" {...field} />
                         </div>
                       </FormControl>

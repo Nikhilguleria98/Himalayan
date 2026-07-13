@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { formatPrice, getListingPrice } from "../../lib/listingPrice";
 
 const Cards = ({ trips, showAll }) => {
   const tripList = Array.isArray(trips) ? trips : [];
@@ -12,7 +13,7 @@ const Cards = ({ trips, showAll }) => {
   return (
     <>
       {visibleTrips.map((trip, index) => {
-        const price = Number(trip.salePrice || trip.price || 0);
+        const price = getListingPrice(trip);
 
         return (
           <motion.div
@@ -49,9 +50,7 @@ const Cards = ({ trips, showAll }) => {
                 </p>
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <p className="text-teal-600 text-sm font-bold">
-                    {price > 0
-                      ? `${import.meta.env.VITE_CURRENCY_SYMBOL}${price.toLocaleString("en-IN")}`
-                      : "Price on request"}
+                    {formatPrice(price) || "Price on request"}
                   </p>
                   <p className="text-yellow-600 text-sm">
                     {trip.averageReview || 5}/5 Reviews
