@@ -10,6 +10,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPackages } from "../../store/client/tourPackage-slice";
 
@@ -75,13 +76,18 @@ export default function Recommended() {
           {visibleTrips.map((trip) => (
             <motion.div
               key={trip._id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden"
+              className="overflow-hidden rounded-lg bg-white shadow-lg"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
             >
+              <Link
+                to={`/package/${trip._id}`}
+                className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-teal-600"
+                aria-label={`View details for ${trip.title}`}
+              >
               <div className="relative">
                 <img src={trip.gallery?.[0] || "/images/HomePage/h1.png"} alt={trip.title} className="w-full h-48 object-cover" />
                 {trip.tag && (
@@ -107,6 +113,7 @@ export default function Recommended() {
                   <p className="text-sm text-yellow-500">⭐ {Number(trip.averageReview || 5)}/5</p>
                 </div>
               </div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

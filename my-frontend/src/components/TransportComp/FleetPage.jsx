@@ -11,7 +11,9 @@ const FleetPage = () => {
             Seamless <span className="text-cyan-600">Travel Experiences</span>
           </h2>
           <p className="mt-6 text-gray-600">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...
+            Travel comfortably across the Himalayas with dependable vehicles and
+            experienced local drivers. From airport transfers to scenic road
+            journeys, we help every part of your trip run smoothly and safely.
           </p>
         </div>
 
