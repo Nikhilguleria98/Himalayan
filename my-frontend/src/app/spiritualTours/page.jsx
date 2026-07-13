@@ -1,5 +1,3 @@
-import React from "react";
-import { Star } from "lucide-react";
 import DestinationSlider from "../../components/DestinationsComp/DestinationSlider";
 // import ClientSay from "../../components/HomePageComp/ClientSay";
 import Blogs from "../../components/HomePageComp/Blogs";
@@ -7,33 +5,6 @@ import WhyHimalayan from "../../components/HomePageComp/WhyHimalayan";
 import CategoryPackagesSection from "../../components/PackagePageComp/CategoryPackagesSection";
 
 const SpiritualTours = () => {
-  const tours = [
-    {
-      id: 1,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
-    },
-    {
-      id: 2,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
-    },
-    {
-      id: 3,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
-    },
-  ];
-
   return (
     <div className="responsivewidth px-0 py-12 font-sans">
       {/* Hero Section */}
@@ -70,46 +41,6 @@ const SpiritualTours = () => {
         title="Spiritual Tours"
         description="Quiet, meaningful journeys that blend pilgrimage, reflection, and Himalayan beauty."
       />
-
-      {/* Tours Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
-        {tours.map((tour) => (
-          <div key={tour.id} className="flex items-start space-x-4 p-4 rounded-lg">
-            <div className="flex-shrink-0">
-              <img
-                src={tour.image}
-                alt={tour.name}
-                className="w-32 h-24 rounded-lg object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <h3 className="font-semibold text-lg">{tour.name}</h3>
-              <div className="flex items-center mt-1">
-                <span className="text-gray-600 text-sm">Starting From:</span>
-                <span className="text-teal-500 font-semibold ml-1">
-                  {tour.price}
-                </span>
-              </div>
-              <div className="flex items-center mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    className={`${
-                      i < tour.rating
-                        ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-300"
-                    }`}
-                  />
-                ))}
-                <span className="text-gray-500 text-sm ml-2">
-                  ({tour.reviews} Reviews)
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
 
       <DestinationSlider />
       {/* <ClientSay /> */}

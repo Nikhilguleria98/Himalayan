@@ -1,5 +1,3 @@
-import React from "react";
-import { Clock, Star } from "lucide-react";
 import DestinationSlider from "../../components/DestinationsComp/DestinationSlider";
 // import ClientSay from "../../components/HomePageComp/ClientSay"
 import WhyHimalayan from "../../components/HomePageComp/WhyHimalayan";
@@ -15,7 +13,6 @@ export default function Page() {
         title="Student Tours"
         description="Adventure-filled educational trips for groups, colleges, and young explorers."
       />
-      <Recomended />
       <DestinationSlider />
       {/* <ClientSay /> */}
       <WhyHimalayan />
@@ -81,121 +78,3 @@ const Hero = () => {
   );
 };
 
-const Recomended = () => {
-  const tours = [
-    {
-      id: 1,
-      name: "Har Ki Dun Trek",
-      location: "Uttarakhand",
-      nights: 5,
-      days: 7,
-      price: 12500,
-      reviews: 3,
-      rating: 5,
-      image: "",
-      tag: "Best Seller",
-    },
-    {
-      id: 2,
-      name: "Kedarnath Trek",
-      location: "Uttarakhand",
-      nights: 5,
-      days: 7,
-      price: 12500,
-      reviews: 2,
-      rating: 5,
-      image: "",
-      tag: "20% OFF",
-    },
-    {
-      id: 3,
-      name: "Kashmir Trek",
-      location: "Kashmir",
-      nights: 5,
-      days: 7,
-      price: 12500,
-      reviews: 2,
-      rating: 5,
-      image: "",
-    },
-    {
-      id: 4,
-      name: "Chandra Nahan Lake Trek",
-      location: "Himachal Pradesh",
-      nights: 5,
-      days: 7,
-      price: 12500,
-      reviews: 2,
-      rating: 5,
-      image: "",
-      tag: "Best Seller",
-    },
-  ];
-
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-12 font-sans">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-        Recommended <span className="text-teal-500">Trips</span>
-      </h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {tours.map((tour) => (
-          <div
-            key={tour.id}
-            className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100"
-          >
-            <div className="relative">
-              <img
-                src={tour.image || "/assets/biketour/img2.png"}
-                alt={tour.name}
-                className="w-full h-48 object-cover"
-              />
-              {tour.tag && (
-                <div
-                  className={`absolute top-3 left-3 py-1 px-3 rounded-md text-xs font-medium text-white ${
-                    tour.tag === "Best Seller" ? "bg-teal-600" : "bg-blue-600"
-                  }`}
-                >
-                  {tour.tag}
-                </div>
-              )}
-            </div>
-
-            <div className="p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-semibold text-gray-900">{tour.name}</h3>
-                <span className="text-xs text-gray-500">From</span>
-              </div>
-
-              <div className="flex items-center text-xs text-gray-600 mb-2">
-                <Clock size={14} className="mr-1" />
-                <span>
-                  {tour.nights} Nights, {tour.days} Days
-                </span>
-              </div>
-
-              <div className="flex items-center mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={14}
-                    className="text-yellow-400 fill-yellow-400"
-                  />
-                ))}
-                <span className="text-xs text-gray-500 ml-1">
-                  ({tour.reviews} Reviews)
-                </span>
-              </div>
-
-              <div className="flex justify-end">
-                <span className="text-teal-500 font-bold text-xl">
-                  ₹ {tour.price.toLocaleString()}
-                </span>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};

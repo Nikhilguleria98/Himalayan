@@ -1,32 +1,22 @@
 import React, { useRef } from "react";
-import { Star } from "lucide-react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const Section6 = () => {
-  const tours = [
+  const themes = [
     {
       id: 1,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
+      title: "Mountain Retreats",
+      description: "Scenic stays and curated itineraries for teams who want a calm, premium escape away from the daily routine.",
     },
     {
       id: 2,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
+      title: "Adventure Escapes",
+      description: "Trekking, biking, and outdoor activities designed to energize teams while creating shared memories.",
     },
     {
       id: 3,
-      name: "Chandra Nahan Lake Trek",
-      price: "₹12,500",
-      reviews: 2,
-      rating: 5,
-      image: "/assets/spiritualTours/img3.png",
+      title: "Cultural Journeys",
+      description: "Immersive travel that blends local heritage, food, and hospitality with business-friendly planning.",
     },
   ];
 
@@ -44,55 +34,24 @@ const Section6 = () => {
   return (
     <div className="responsivewidth font-poppins mt-10">
       <h1 className="text-center text-[4vh] md:text-[5vh] font-bold">
-        Our Yatra <span className="text-[#0C8699]">Packages</span>
+        Popular <span className="text-[#0C8699]">Travel Themes</span>
       </h1>
       <div className="mt-10">
         <div
           ref={scrollRef}
           className="flex space-x-6 py-4 pl-4 scroll-smooth overflow-x-hidden"
         >
-          {tours.map((tour) => (
+          {themes.map((item) => (
             <div
-              key={tour.id}
-              className="min-w-[200px] md:min-w-[360px] flex flex-col md:flex-row items-start md:space-x-4 p-4 rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.1)] bg-white"
+              key={item.id}
+              className="min-w-[240px] md:min-w-[320px] rounded-lg border border-gray-200 bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
             >
-              <div className="md:flex-shrink-0">
-                <img
-                  src={tour.image}
-                  alt={tour.name}
-                  className="w-[170px] md:w-32 h-24 rounded-lg object-cover"
-                />
-              </div>
-              <div className="flex flex-col md:gap-2">
-                <h3 className="font-semibold text-[14px]">{tour.name}</h3>
-                <div className="flex items-center mt-1">
-                  <span className="text-[12px]">Starting From:</span>
-                  <span className="text-[#0C8699] font-semibold ml-1 text-[14px]">
-                    {tour.price}
-                  </span>
-                </div>
-                <div className="flex md:gap-1 items-center mt-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      className={`${
-                        i < tour.rating
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                  <span className="text-gray-500 text-[13px] ml-2">
-                    ({tour.reviews} Reviews)
-                  </span>
-                </div>
-              </div>
+              <h3 className="font-semibold text-[16px] text-gray-900">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">{item.description}</p>
             </div>
           ))}
         </div>
 
-        {/* Scroll Buttons */}
         <div className="flex justify-center mt-4 space-x-4 text-white">
           <button
             onClick={() => scroll("left")}

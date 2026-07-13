@@ -22,6 +22,22 @@ export const createOrder = async (req, res) => {
     const razorpayFee = calculatedTotal * RAZORPAY_FEE_PERCENTAGE;
     const gst = razorpayFee * GST_PERCENTAGE;
     const totalWithFee = calculatedTotal + razorpayFee + gst;
+    const tourPackageSnapshot = {
+      title: tourPackage.title,
+      pricePerPerson,
+      description: tourPackage.description || "",
+      duration: tourPackage.duration || "",
+      pickDrop: tourPackage.pickDrop || "",
+      gallery: Array.isArray(tourPackage.gallery) ? tourPackage.gallery : [],
+      inclusions: (tourPackage.inclusions || []).map((item) => ({
+        text: item?.text || item || "",
+      })),
+      itinerary: (tourPackage.itinerary || []).slice(0, 4).map((item) => ({
+        day: item?.day || 1,
+        title: item?.Title || item?.title || "",
+        todayActivities: Array.isArray(item?.todayActivities) ? item.todayActivities : [],
+      })),
+    };
 
     const order = await Order.create({
       userId,
@@ -32,10 +48,7 @@ export const createOrder = async (req, res) => {
       razorpayFee: razorpayFee.toFixed(2),
       gst: gst.toFixed(2),
       totalPayable: totalWithFee.toFixed(2),
-      tourPackageSnapshot: {
-        title: tourPackage.title,
-        pricePerPerson,
-      },
+      tourPackageSnapshot,
     });
 
     res.status(201).json({
@@ -86,18 +99,14 @@ export const getAllOrdersByUser = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const orders = await Order.find({ userId });
-
-    if (!orders.length) {
-      return res.status(404).json({
-        success: false,
-        message: "No orders found!",
-      });
-    }
+    const orders = await Order.find({ userId }).populate({
+      path: "tourPackageId",
+      select: "title description duration pickDrop salePrice price inclusions itinerary gallery",
+    });
 
     res.status(200).json({
       success: true,
-      data: orders,
+      data: orders || [],
     });
   } catch (e) {
     console.log(e);
@@ -112,7 +121,10 @@ export const getOrderDetails = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const order = await Order.findById(id);
+    const order = await Order.findById(id).populate({
+      path: "tourPackageId",
+      select: "title description duration pickDrop salePrice price inclusions itinerary gallery",
+    });
 
     if (!order) {
       return res.status(404).json({

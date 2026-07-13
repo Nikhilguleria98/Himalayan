@@ -20,6 +20,7 @@ export default function BookingCard({
   pricePerPerson,
   totalPrice,
   isBooking,
+  isAlreadyBooked,
   bookingMessage,
   handleBooking,
 }) {
@@ -31,9 +32,9 @@ export default function BookingCard({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl shadow-gray-200/60">
+      <div className="w-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl shadow-gray-200/60">
         {/* Card Header */}
-        <div className="bg-gradient-to-r from-teal-600 to-teal-500 px-6 py-5">
+        <div className="bg-gradient-to-r from-teal-600 to-teal-500 px-4 py-5 sm:px-6">
           <p className="text-sm font-medium text-teal-100">Starting From</p>
           <div className="mt-1 flex items-end gap-2">
             <span className="text-3xl font-bold text-white">
@@ -48,7 +49,7 @@ export default function BookingCard({
         </div>
 
         {/* Booking Form */}
-        <form onSubmit={handleBooking} className="px-6 py-5 space-y-4">
+        <form onSubmit={handleBooking} className="space-y-4 px-4 py-5 sm:px-6">
           {/* Traveler Name */}
           <div>
             <label className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500">
@@ -156,12 +157,14 @@ export default function BookingCard({
           {/* Submit */}
           <button
             type="submit"
-            disabled={isBooking}
-            className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-teal-500 py-3.5 text-sm font-bold text-white shadow-lg shadow-teal-500/25 transition hover:from-teal-500 hover:to-teal-400 hover:shadow-teal-400/30 active:scale-[0.98] disabled:opacity-60"
+            disabled={isBooking || isAlreadyBooked}
+            className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-teal-500 py-3.5 text-sm font-bold text-white shadow-lg shadow-teal-500/25 transition hover:from-teal-500 hover:to-teal-400 hover:shadow-teal-400/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isBooking
               ? "Processing..."
-              : `Book Now – ${currencySymbol} ${totalPrice.toLocaleString("en-IN")}`}
+              : isAlreadyBooked
+                ? "Already Booked"
+                : `Book Now – ${currencySymbol} ${totalPrice.toLocaleString("en-IN")}`}
           </button>
 
           {/* Booking Message */}
@@ -181,8 +184,8 @@ export default function BookingCard({
         </form>
 
         {/* Trust Badges */}
-        <div className="border-t border-gray-100 px-6 py-4">
-          <div className="grid grid-cols-2 gap-3">
+        <div className="border-t border-gray-100 px-4 py-4 sm:px-6">
+          <div className="grid gap-3 sm:grid-cols-2">
             {TRUST_BADGES.map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-2">
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-50">

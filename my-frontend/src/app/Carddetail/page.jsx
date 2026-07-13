@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { API_BASE_URL } from "../../lib/api";
@@ -22,6 +22,7 @@ import ReviewsSection from "../../components/package/ReviewsSection";
 import TripStatistics from "../../components/package/TripStatistics";
 import RelatedPackages from "../../components/package/RelatedPackages";
 import CTASection from "../../components/package/CTASection";
+import { getAllOrdersByUser } from "../../store/client/order-slice";
 
 // ─── Preserved Business Logic ─────────────────────────────────────────────────
 const initialTraveler = { name: "", age: "", gender: "Male" };
@@ -58,7 +59,9 @@ export default function PackageDetail() {
   // ── All original state preserved ──
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { orderList } = useSelector((state) => state.clientOrder);
 
   const [trip, setTrip] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -71,6 +74,12 @@ export default function PackageDetail() {
   const bookingRef = useRef(null);
 
   // ── Original fetch logic ──
+  useEffect(() => {
+    if (isAuthenticated && user?.id) {
+      dispatch(getAllOrdersByUser(user.id));
+    }
+  }, [dispatch, isAuthenticated, user?.id]);
+
   useEffect(() => {
     async function fetchTrip() {
       try {
@@ -97,6 +106,15 @@ export default function PackageDetail() {
     [trip]
   );
   const totalPrice = pricePerPerson * Number(quantity || 1);
+  const isPackageBooked = useMemo(() => {
+    if (!isAuthenticated || !user?.id || !trip?._id) return false;
+
+    return (orderList || []).some((order) => {
+      const packageId =
+        order?.tourPackageId?._id || order?.tourPackageId || order?.tourPackageSnapshot?._id;
+      return String(packageId) === String(trip._id);
+    });
+  }, [isAuthenticated, orderList, trip?._id, user?.id]);
 
   // ── Original booking handler ──
   async function handleBooking(event) {
@@ -104,6 +122,11 @@ export default function PackageDetail() {
     setBookingMessage("");
     if (!isAuthenticated || !user?.id) {
       navigate("/Login");
+      return;
+    }
+
+    if (isPackageBooked) {
+      setBookingMessage("You already booked this package.");
       return;
     }
     try {
@@ -184,8 +207,8 @@ export default function PackageDetail() {
           Left  → all content sections
           Right → sticky booking card (always visible on desktop)
           ════════════════════════════════════════════════════════ */}
-      <div className="responsivewidth py-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+      <div className="responsivewidth px-3 py-6 sm:px-4 lg:px-0 lg:py-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
 
           {/* ── LEFT: Main Content Column ── */}
           <div className="min-w-0 flex-1">
@@ -257,7 +280,7 @@ export default function PackageDetail() {
           */}
           <div
             ref={bookingRef}
-            className="w-full shrink-0 lg:w-[380px] lg:self-start lg:sticky lg:top-[96px]"
+            className="w-full shrink-0 lg:w-[360px] lg:self-start lg:sticky lg:top-[96px]"
           >
             <BookingCard
               trip={trip}
@@ -268,6 +291,7 @@ export default function PackageDetail() {
               pricePerPerson={pricePerPerson}
               totalPrice={totalPrice}
               isBooking={isBooking}
+              isAlreadyBooked={isPackageBooked}
               bookingMessage={bookingMessage}
               handleBooking={handleBooking}
             />

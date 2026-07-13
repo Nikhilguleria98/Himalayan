@@ -5,7 +5,7 @@ const Section2 = () => {
     <>
       <div className="bg-gradient-to-b from-white to-[#ecf8ff] font-poppins md:pb-20">
         <h2 className="text-center text-[4vw] md:text-[2vw] font-bold mb-5 md:mb-14">
-          What Activities We <span className="text-[#0C8699]"> Offer?</span>
+          What Your Team Can <span className="text-[#0C8699]"> Experience</span>
         </h2>
 
         {/* Desktop Image */}
@@ -21,7 +21,7 @@ const Section2 = () => {
                 <img src="/images/destinationPage/fire.png" alt="Communication Activities" />
               </div>
               <p className="text-[12px] text-center">
-                Communication <br /> Activities
+                Leadership <br /> Workshops
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -29,7 +29,7 @@ const Section2 = () => {
                 <img src="/images/destinationPage/adventure.png" alt="Adventure Activities" />
               </div>
               <p className="text-[12px] text-center">
-                Adventure <br /> Activities
+                Adventure <br /> Challenges
               </p>
             </div>
           </div>
@@ -48,7 +48,7 @@ const Section2 = () => {
                 <img src="/images/destinationPage/walk.png" alt="Nature Walk" />
               </div>
               <p className="text-[12px] text-center">
-                Nature <br /> walk
+                Scenic <br /> Trekking
               </p>
             </div>
           </div>

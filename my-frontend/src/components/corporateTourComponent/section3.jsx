@@ -5,27 +5,27 @@ const Section3 = () => {
     {
       id: 1,
       para:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "Tailored itineraries for leadership retreats, incentive trips, and offsite planning that fit your team's goals.",
     },
     {
       id: 2,
       para:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "Comfort-first travel support with premium stays, smooth transfers, and attentive local coordination from start to finish.",
     },
     {
       id: 3,
       para:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "A perfect balance of adventure, wellness, and cultural immersion set against the beauty of the Himalayas.",
     },
     {
       id: 4,
       para:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "Flexible options for small teams, large groups, and multi-day programs with clear budgeting and planning support.",
     },
     {
       id: 5,
       para:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+        "Safety-led travel experiences backed by experienced hosts, trusted local guides, and dependable on-ground support.",
     },
   ];
 

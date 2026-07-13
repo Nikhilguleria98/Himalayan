@@ -8,46 +8,31 @@
 
 // export default OurTrips
 
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const tripsData = {
-  "Top Destinations": [
-    { id: 1, title: "Kashmir Great Lakes Trek", duration: "6 Nights, 7 Days", price: "₹ 12,500", badge: "Best Seller", image: "/images/HomePage/h1.png" },
-    { id: 2, title: "Chandranahan Lake Trek", duration: "4 Nights, 5 Days", price: "₹ 14,000", badge: "20% OFF", image: "/images/HomePage/h1.png" },
-    { id: 3, title: "Tarsar Marsar Lake Trek", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 4, title: "Valley of Flowers Trek", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-  ],
-  "New Launches": [
-    { id: 5, title: "Himalayan Adventure", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 6, title: "Kerala Backwaters", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 7, title: "Himalayan Adventure", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 8, title: "Kerala Backwaters", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-  ],
-  "Trending": [
-    { id: 9, title: "Rajasthan Desert Safari", duration: "5 Nights, 6 Days", price: "₹ 13,500", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 10, title: "Andaman Islands", duration: "6 Nights, 7 Days", price: "₹ 20,000", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 11, title: "Himalayan Adventure", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 12, title: "Kerala Backwaters", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-  ],
-  "Recommended": [
-    { id: 13, title: "Rajasthan Desert Safari", duration: "5 Nights, 6 Days", price: "₹ 13,500", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 14, title: "Andaman Islands", duration: "6 Nights, 7 Days", price: "₹ 20,000", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 15, title: "Himalayan Adventure", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 16, title: "Kerala Backwaters", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-  ],
-  "Featured": [
-    { id: 17, title: "Rajasthan Desert Safari", duration: "5 Nights, 6 Days", price: "₹ 13,500", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 18, title: "Andaman Islands", duration: "6 Nights, 7 Days", price: "₹ 20,000", badge: "Trending", image: "/images/HomePage/h1.png" },
-    { id: 19, title: "Himalayan Adventure", duration: "7 Nights, 8 Days", price: "₹ 18,000", badge: "New", image: "/images/HomePage/h1.png" },
-    { id: 20, title: "Kerala Backwaters", duration: "6 Nights, 7 Days", price: "₹ 15,500", badge: "New", image: "/images/HomePage/h1.png" },
-  ],
-};
-
-const categories = Object.keys(tripsData);
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllPackages } from "../../store/client/tourPackage-slice";
 
 const DiscoverTrips = () => {
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const dispatch = useDispatch();
+  const { packageList } = useSelector((state) => state.clientTourPackages);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  useEffect(() => {
+    dispatch(fetchAllPackages());
+  }, [dispatch]);
+
+  const categories = useMemo(() => {
+    const packages = Array.isArray(packageList) ? packageList : [];
+    const tags = [...new Set(packages.map((item) => item.tag).filter(Boolean))];
+    return ["All", ...tags];
+  }, [packageList]);
+
+  const visibleTrips = useMemo(() => {
+    const packages = Array.isArray(packageList) ? packageList : [];
+    if (activeCategory === "All") return packages;
+    return packages.filter((item) => item.tag === activeCategory);
+  }, [activeCategory, packageList]);
 
   return (
     <div className="container px-6 md:px-18 py-10 pt-16">
@@ -60,24 +45,23 @@ const DiscoverTrips = () => {
         Related <span className="text-teal-600">Trips</span>
       </motion.h2>
 
-      {/* Uncomment this to enable category filter tabs */}
-      {/* <motion.div className="flex flex-wrap justify-center gap-4 mb-6">
+      <motion.div className="mb-6 flex flex-wrap justify-center gap-4">
         {categories.map((category) => (
           <motion.button
             key={category}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold border transition-all ${
+            className={`rounded-lg border px-4 py-2 text-sm font-semibold transition-all ${
               activeCategory === category
                 ? "bg-teal-600 text-white"
                 : "border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
             }`}
             onClick={() => setActiveCategory(category)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {category}
           </motion.button>
         ))}
-      </motion.div> */}
+      </motion.div>
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -88,9 +72,9 @@ const DiscoverTrips = () => {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
         >
-          {tripsData[activeCategory].map((trip) => (
+          {visibleTrips.map((trip) => (
             <motion.div
-              key={trip.id}
+              key={trip._id}
               className="bg-white rounded-lg shadow-lg overflow-hidden"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -100,29 +84,33 @@ const DiscoverTrips = () => {
             >
               <div className="relative">
                 <img
-                  src={trip.image}
+                  src={trip.gallery?.[0] || "/images/HomePage/h1.png"}
                   alt={trip.title}
                   className="w-full h-48 object-cover"
                 />
-                {trip.badge && (
+                {trip.tag && (
                   <motion.span
                     className="absolute top-2 left-2 bg-teal-600 text-white text-xs px-3 py-1 rounded-full"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {trip.badge}
+                    {trip.tag}
                   </motion.span>
                 )}
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-semibold">{trip.title}</h3>
-                <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                  ⏳ {trip.duration}
+                <p className="mt-1 flex items-center gap-1 text-sm text-gray-600">
+                  ⏳ {trip.duration || "Available on request"}
                 </p>
                 <div className="mt-2 flex items-center justify-between">
-                  <p className="text-teal-600 text-sm font-bold">{trip.price}</p>
-                  <p className="text-yellow-500 text-sm">⭐⭐⭐⭐⭐ (2 Reviews)</p>
+                  <p className="text-sm font-bold text-teal-600">
+                    {Number(trip.salePrice || trip.price || 0) > 0
+                      ? `${import.meta.env.VITE_CURRENCY_SYMBOL || "₹"}${Number(trip.salePrice || trip.price || 0).toLocaleString("en-IN")}`
+                      : "Price on request"}
+                  </p>
+                  <p className="text-sm text-yellow-500">⭐ {Number(trip.averageReview || 5)}/5</p>
                 </div>
               </div>
             </motion.div>

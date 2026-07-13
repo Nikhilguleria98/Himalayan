@@ -12,6 +12,17 @@ const getStoredToken = () => {
 
 const storedToken = getStoredToken();
 
+const normalizeUser = (user) => {
+  if (!user) return null;
+  if (user.id || user._id) {
+    return {
+      ...user,
+      id: user.id || user._id,
+    };
+  }
+  return user;
+};
+
 const initialState = {
   isAuthenticated: Boolean(storedToken),
   isLoading: Boolean(storedToken),
@@ -231,7 +242,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null;
+        state.user = action.payload.success ? normalizeUser(action.payload.user) : null;
         state.isAuthenticated = action.payload.success;
         state.token = action.payload.token;
         if (action.payload.token) {
@@ -250,7 +261,7 @@ const authSlice = createSlice({
       })
       .addCase(loginAdmin.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null;
+        state.user = action.payload.success ? normalizeUser(action.payload.user) : null;
         state.isAuthenticated = action.payload.success;
         state.token = action.payload.token;
         if (action.payload.token) {
@@ -280,7 +291,7 @@ const authSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.success ? action.payload.user : null;
+        state.user = action.payload.success ? normalizeUser(action.payload.user) : null;
         state.isAuthenticated = action.payload.success;
         state.token = action.meta.arg;
       })

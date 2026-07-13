@@ -49,6 +49,16 @@ const OrderSchema = new mongoose.Schema(
     tourPackageSnapshot: {
       title: String,
       pricePerPerson: Number,
+      description: String,
+      duration: String,
+      pickDrop: String,
+      gallery: [String],
+      inclusions: [{ text: String }],
+      itinerary: [{
+        day: Number,
+        title: String,
+        todayActivities: [String],
+      }],
     },
   },
   { timestamps: true }

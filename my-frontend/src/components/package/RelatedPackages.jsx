@@ -1,57 +1,34 @@
+import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Star, Clock, ArrowRight } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-const RELATED_PACKAGES = [
-  {
-    id: "spiti-road",
-    title: "Spiti Road Trip",
-    destination: "Delhi to Delhi",
-    duration: "7N/8D",
-    price: 21500,
-    originalPrice: 23000,
-    rating: 4.9,
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80",
-    tag: "Bestseller",
-  },
-  {
-    id: "spiti-backpack",
-    title: "Spiti Backpacking Trip",
-    destination: "Delhi to Delhi",
-    duration: "7N/8D",
-    price: 23500,
-    originalPrice: 25000,
-    rating: 4.8,
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=80",
-    tag: "Popular",
-  },
-  {
-    id: "spiti-bike",
-    title: "Spiti Bike & Backpacking",
-    destination: "Delhi to Delhi",
-    duration: "9N/10D",
-    price: 31000,
-    originalPrice: 32500,
-    rating: 4.9,
-    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=500&q=80",
-    tag: "Adventure",
-  },
-  {
-    id: "all-girls-spiti",
-    title: "All Girls Road Trip to Spiti",
-    destination: "Delhi to Delhi",
-    duration: "8N/9D",
-    price: 25000,
-    originalPrice: 27500,
-    rating: 4.7,
-    image: "https://images.unsplash.com/photo-1623491979897-9eb5cd0eee07?w=500&q=80",
-    tag: "Girls Special",
-  },
-];
+import { fetchAllPackages } from "../../store/client/tourPackage-slice";
 
 export default function RelatedPackages() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { packageList } = useSelector((state) => state.clientTourPackages);
   const currencySymbol = import.meta.env.VITE_CURRENCY_SYMBOL || "₹";
+
+  useEffect(() => {
+    dispatch(fetchAllPackages());
+  }, [dispatch]);
+
+  const relatedPackages = useMemo(() => {
+    const packages = Array.isArray(packageList) ? packageList : [];
+    return packages.slice(0, 4).map((pkg) => ({
+      id: pkg._id,
+      title: pkg.title,
+      destination: pkg.tag || pkg.duration || "Himalayan Adventure",
+      duration: pkg.duration || "Available on request",
+      price: Number(pkg.salePrice || pkg.price || 0),
+      originalPrice: Number(pkg.price || pkg.salePrice || 0),
+      rating: Number(pkg.averageReview || 5),
+      image: pkg.gallery?.[0] || "/placeholder.svg",
+      tag: pkg.tag || "Featured",
+    }));
+  }, [packageList]);
 
   return (
     <section className="bg-white py-16">
@@ -81,7 +58,7 @@ export default function RelatedPackages() {
 
         {/* Horizontal scroll on mobile, grid on lg */}
         <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide lg:grid lg:grid-cols-4 lg:overflow-visible lg:pb-0">
-          {RELATED_PACKAGES.map((pkg, i) => (
+          {relatedPackages.map((pkg, i) => (
             <motion.div
               key={pkg.id}
               initial={{ opacity: 0, y: 30 }}
@@ -127,12 +104,18 @@ export default function RelatedPackages() {
                 {/* Price + Button */}
                 <div className="mt-3 flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-gray-400 line-through">
-                      {currencySymbol} {pkg.originalPrice.toLocaleString("en-IN")}
-                    </p>
+                    <div>
+                    {pkg.originalPrice > pkg.price ? (
+                      <p className="text-xs text-gray-400 line-through">
+                        {currencySymbol} {pkg.originalPrice.toLocaleString("en-IN")}
+                      </p>
+                    ) : null}
                     <p className="text-base font-bold text-teal-600">
-                      {currencySymbol} {pkg.price.toLocaleString("en-IN")}
+                      {pkg.price > 0
+                        ? `${currencySymbol} ${pkg.price.toLocaleString("en-IN")}`
+                        : "Price on request"}
                     </p>
+                  </div>
                   </div>
                   <button
                     onClick={() => navigate(`/package/${pkg.id}`)}

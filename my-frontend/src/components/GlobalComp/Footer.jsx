@@ -72,7 +72,7 @@ const Footer = () => {
                 </li>
                 <li className="text-neutral-50 flex gap-1 text-base font-normal font-poppins">
                   <Phone />
-                  <span className="break-all">7876750072</span>
+                  <span className="break-all">9736442270, 8219093557, 9805844365</span>
                 </li>
                 <li className="text-neutral-50 flex gap-1 text-base font-normal font-poppins">
                   <MapPin />
