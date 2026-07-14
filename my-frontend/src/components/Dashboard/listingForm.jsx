@@ -142,6 +142,12 @@ const formSchema = z.object({
         .optional(),
     })
     .optional(),
+  travelInformation: z
+    .object({
+      title: z.string().optional(),
+      multipleWays: z.array(z.object({ title: z.string().optional(), desc: z.string().optional() })).optional(),
+    })
+    .optional(),
   averageReview: z.coerce.number().min(0).max(5).optional(),
 })
 
@@ -162,6 +168,7 @@ export function ListingForm({ id }) {
   const [bestTimeToVisitCount, setBestTimeToVisitCount] = useState(1)
   const [placesToVisitCount, setPlacesToVisitCount] = useState(1)
   const [thingsToDoCount, setThingsToDoCount] = useState(1)
+  const [travelInformationCount, setTravelInformationCount] = useState(1)
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -209,6 +216,7 @@ export function ListingForm({ id }) {
           bestTimeToVisit: existingListing.bestTimeToVisit || { title: "", multipleWays: [{ time: "", desc: "" }] },
           placesToVisit: existingListing.placesToVisit || { title: "", multipleWays: [{ place: "", desc: "" }] },
           thingsToDo: existingListing.thingsToDo || { title: "", multipleWays: [{ thing: "", desc: "" }] },
+          travelInformation: existingListing.travelInformation || { title: "", multipleWays: [{ title: "", desc: "" }] },
           averageReview: existingListing.averageReview || 0,
         }
       : {
@@ -228,6 +236,7 @@ export function ListingForm({ id }) {
           bestTimeToVisit: { title: "", multipleWays: [{ time: "", desc: "" }] },
           placesToVisit: { title: "", multipleWays: [{ place: "", desc: "" }] },
           thingsToDo: { title: "", multipleWays: [{ thing: "", desc: "" }] },
+          travelInformation: { title: "", multipleWays: [{ title: "", desc: "" }] },
           averageReview: 0,
         },
   })
@@ -759,76 +768,7 @@ export function ListingForm({ id }) {
                 ))}
               </div>
 
-              {/* Package FAQ Section */}
-              <div className="space-y-4 border p-4 rounded-md">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium">FAQs</h3>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      const currentFaq = form.getValues("faq") || []
-                      form.setValue("faq", [...currentFaq, { que: "", ans: "" }])
-                      setFaqCount(faqCount + 1)
-                    }}
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add FAQ
-                  </Button>
-                </div>
-
-                {Array.from({ length: faqCount }).map((_, index) => (
-                  <div key={`faq-${index}`} className="space-y-4 border p-4 rounded-md">
-                    <div className="flex justify-between items-center">
-                      <h4 className="font-medium">FAQ {index + 1}</h4>
-                      {index > 0 && (
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => {
-                            const currentFaq = form.getValues("faq")
-                            const newFaq = currentFaq.filter((_, i) => i !== index)
-                            form.setValue("faq", newFaq)
-                            setFaqCount(faqCount - 1)
-                          }}
-                        >
-                          Remove FAQ
-                        </Button>
-                      )}
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name={`faq.${index}.que`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Question</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter question" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name={`faq.${index}.ans`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Answer</FormLabel>
-                          <FormControl>
-                            <Textarea placeholder="Enter answer" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                ))}
-              </div>
+         
 
 
               {/* Package How to Reach Section */}
@@ -1187,6 +1127,99 @@ export function ListingForm({ id }) {
                 </div>
               </div>
 
+              {/* Travel Information Section */}
+              <div className="space-y-4 border p-4 rounded-md">
+                <h3 className="text-lg font-medium">Travel Information</h3>
+                <FormField control={form.control} name="travelInformation.title" render={({ field }) => (
+                  <FormItem><FormLabel>Section Title</FormLabel><FormControl><Input placeholder="e.g., Travel Information" {...field} /></FormControl><FormMessage /></FormItem>
+                )} />
+                <div className="flex justify-between items-center"><h4 className="font-medium">Information Cards</h4><Button type="button" variant="outline" size="sm" onClick={() => {
+                  const current = form.getValues("travelInformation.multipleWays") || [];
+                  form.setValue("travelInformation.multipleWays", [...current, { title: "", desc: "" }]);
+                  setTravelInformationCount(travelInformationCount + 1);
+                }}><Plus className="h-4 w-4 mr-2" />Add Information</Button></div>
+                {Array.from({ length: travelInformationCount }).map((_, index) => <div key={`travelInformation-${index}`} className="space-y-4 border p-4 rounded-md">
+                  <div className="flex justify-between items-center"><h5 className="font-medium">Information {index + 1}</h5>{index > 0 && <Button type="button" variant="destructive" size="sm" onClick={() => {
+                    const current = form.getValues("travelInformation.multipleWays") || [];
+                    form.setValue("travelInformation.multipleWays", current.filter((_, itemIndex) => itemIndex !== index));
+                    setTravelInformationCount(travelInformationCount - 1);
+                  }}>Remove</Button>}</div>
+                  <FormField control={form.control} name={`travelInformation.multipleWays.${index}.title`} render={({ field }) => <FormItem><FormLabel>Heading</FormLabel><FormControl><Input placeholder="e.g., Weather" {...field} /></FormControl><FormMessage /></FormItem>} />
+                  <FormField control={form.control} name={`travelInformation.multipleWays.${index}.desc`} render={({ field }) => <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Enter travel information" {...field} /></FormControl><FormMessage /></FormItem>} />
+                </div>)}
+              </div>
+
+
+     {/* Package FAQ Section */}
+              <div className="space-y-4 border p-4 rounded-md">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-medium">FAQs</h3>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const currentFaq = form.getValues("faq") || []
+                      form.setValue("faq", [...currentFaq, { que: "", ans: "" }])
+                      setFaqCount(faqCount + 1)
+                    }}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add FAQ
+                  </Button>
+                </div>
+
+                {Array.from({ length: faqCount }).map((_, index) => (
+                  <div key={`faq-${index}`} className="space-y-4 border p-4 rounded-md">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-medium">FAQ {index + 1}</h4>
+                      {index > 0 && (
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => {
+                            const currentFaq = form.getValues("faq")
+                            const newFaq = currentFaq.filter((_, i) => i !== index)
+                            form.setValue("faq", newFaq)
+                            setFaqCount(faqCount - 1)
+                          }}
+                        >
+                          Remove FAQ
+                        </Button>
+                      )}
+                    </div>
+
+                    <FormField
+                      control={form.control}
+                      name={`faq.${index}.que`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Question</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Enter question" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`faq.${index}.ans`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Answer</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Enter answer" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                ))}
+              </div>
               {/* Form Submit button */}
               <div className="flex justify-end">
                 <Button type="button" variant="outline" className="mr-2" onClick={() => navigate("/Dashboard")}>

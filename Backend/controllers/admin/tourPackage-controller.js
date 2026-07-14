@@ -65,6 +65,7 @@ export const addTourPackage = async (req, res) => {
       bestTimeToVisit,
       placesToVisit,
       thingsToDo,
+      travelInformation,
     } = req.body;
 
     // Parse gallery URLs
@@ -116,6 +117,7 @@ export const addTourPackage = async (req, res) => {
       bestTimeToVisit,
       placesToVisit,
       thingsToDo,
+      travelInformation,
       thingsToPack,
     });
 
@@ -159,6 +161,7 @@ export const editTourPackage = async (req, res) => {
       bestTimeToVisit,
       placesToVisit,
       thingsToDo,
+      travelInformation,
     } = req.body;
 
     // Upload new gallery images if provided
@@ -194,6 +197,7 @@ export const editTourPackage = async (req, res) => {
         bestTimeToVisit,
         placesToVisit,
         thingsToDo,
+        travelInformation,
         thingsToPack: thingsToPack.length ? thingsToPack : undefined,
       },
       { new: true, omitUndefined: true }

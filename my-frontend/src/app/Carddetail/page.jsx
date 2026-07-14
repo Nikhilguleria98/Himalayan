@@ -256,7 +256,7 @@ export default function PackageDetail() {
 
             {/* Travel Information */}
             <div className="mt-8">
-              <TravelInformation bestTimeToVisit={trip.bestTimeToVisit} embedded />
+              <TravelInformation travelInformation={trip.travelInformation} embedded />
             </div>
 
             {/* How To Reach */}

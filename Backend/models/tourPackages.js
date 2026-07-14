@@ -81,6 +81,13 @@ const PackageSchema = new mongoose.Schema({
             desc: { type: String, required: false },
         }]
     },
+    travelInformation: {
+        title: { type: String, required: false },
+        multipleWays: [{
+            title: { type: String, required: false },
+            desc: { type: String, required: false },
+        }]
+    },
     averageReview: { type: Number, required: false },
 }, { timestamps: true });
 
