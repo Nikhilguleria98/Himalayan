@@ -60,7 +60,7 @@ export default function PackageDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, token } = useSelector((state) => state.auth);
   const { orderList } = useSelector((state) => state.clientOrder);
 
   const [trip, setTrip] = useState(null);
@@ -125,6 +125,11 @@ export default function PackageDetail() {
       return;
     }
 
+    if (user?.role === "admin") {
+      setBookingMessage("Admin accounts cannot book packages.");
+      return;
+    }
+
     if (isPackageBooked) {
       setBookingMessage("You already booked this package.");
       return;
@@ -133,7 +138,10 @@ export default function PackageDetail() {
       setIsBooking(true);
       const response = await fetch(`${API_BASE_URL}/api/client/orders/create`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           userId: user.id,
           tourPackageId: trip._id,
@@ -292,6 +300,7 @@ export default function PackageDetail() {
               totalPrice={totalPrice}
               isBooking={isBooking}
               isAlreadyBooked={isPackageBooked}
+              isAdmin={user?.role === "admin"}
               bookingMessage={bookingMessage}
               handleBooking={handleBooking}
             />

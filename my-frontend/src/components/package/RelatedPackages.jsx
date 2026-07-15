@@ -49,7 +49,7 @@ export default function RelatedPackages() {
             </h2>
           </div>
           <button
-            onClick={() => navigate("/package")}
+            onClick={() => navigate("/discoverTrips")}
             className="hidden items-center gap-1 text-sm font-semibold text-teal-600 hover:text-teal-700 md:flex"
           >
             View All <ArrowRight className="h-4 w-4" />

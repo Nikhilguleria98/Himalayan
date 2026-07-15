@@ -21,6 +21,7 @@ export default function BookingCard({
   totalPrice,
   isBooking,
   isAlreadyBooked,
+  isAdmin,
   bookingMessage,
   handleBooking,
 }) {
@@ -49,6 +50,13 @@ export default function BookingCard({
         </div>
 
         {/* Booking Form */}
+        {isAdmin ? (
+          <div className="px-4 py-5 sm:px-6">
+            <p className="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-700">
+              Admin accounts cannot book packages.
+            </p>
+          </div>
+        ) : (
         <form onSubmit={handleBooking} className="space-y-4 px-4 py-5 sm:px-6">
           {/* Traveler Name */}
           <div>
@@ -182,6 +190,7 @@ export default function BookingCard({
             </motion.p>
           )}
         </form>
+        )}
 
         {/* Trust Badges */}
         <div className="border-t border-gray-100 px-4 py-4 sm:px-6">

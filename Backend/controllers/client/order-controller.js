@@ -7,7 +7,15 @@ const GST_PERCENTAGE = 0.18;
 
 export const createOrder = async (req, res) => {
   try {
-    const { userId, tourPackageId, quantity = 1, travelers = [], totalPrice } = req.body;
+    if (req.user?.role === "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Admin accounts cannot book packages.",
+      });
+    }
+
+    const { tourPackageId, quantity = 1, travelers = [], totalPrice } = req.body;
+    const userId = req.user.id;
     const tourPackage = await tourPackages.findById(tourPackageId);
 
     if (!tourPackage) {
