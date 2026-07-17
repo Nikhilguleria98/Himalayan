@@ -104,6 +104,8 @@ const WhyHimalayan = () => {
               className="w-full h-full object-cover object-center"
               src="/images/HomePage/IMG_0764.webp"
               alt="himalayan 1"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="w-[70vw] h-[60vw] md:w-[28vw] md:h-[25vw] overflow-hidden rounded-[1vw] hover:z-40 cursor-pointer hover:scale-110 duration-1000">
@@ -111,6 +113,8 @@ const WhyHimalayan = () => {
               className="w-full h-full object-cover object-center"
               src="/images/HomePage/IMG_0261.webp"
               alt="himalayan 2"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="absolute w-[60vw] h-[50vw] md:w-[24vw] md:h-[20vw] overflow-hidden bottom-0 left-1/12 md:left-3/12 z-10 rounded-[1vw] hover:z-40 cursor-pointer hover:scale-110 duration-1000">
@@ -118,6 +122,8 @@ const WhyHimalayan = () => {
               className="w-full h-full object-cover object-center"
               src="/images/HomePage/IMG_0320.webp"
               alt="himalayan 3"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

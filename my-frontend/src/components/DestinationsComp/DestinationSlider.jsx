@@ -46,6 +46,8 @@ const DestinationSlider = () => {
               <img
                 src={item.img_Src}
                 alt="cycling"
+                loading={index === current ? "eager" : "lazy"}
+                decoding="async"
                 className="w-[250px] md:w-[450px] h-[150px] md:h-[250px] object-cover rounded-xl"
               />
             </div>

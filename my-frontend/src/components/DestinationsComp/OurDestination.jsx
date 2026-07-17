@@ -32,6 +32,8 @@ const OurDestination = () => {
             className="w-full h-[200px] md:h-[280px] lg:h-[320px] object-cover rounded-xl shadow-md"
             src="/images/destinationPage/sectionimg3.png"
             alt="Winter Meghalaya Trip"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 flex flex-col justify-end p-4 rounded-xl">
             <h3 className="text-white text-lg md:text-xl font-bold">
@@ -47,6 +49,8 @@ const OurDestination = () => {
             className="w-full h-[200px] md:h-[280px] lg:h-[320px] object-cover rounded-xl shadow-md"
             src="/images/destinationPage/megh1.webp"
             alt="Meghalaya"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 flex flex-col justify-end p-4 rounded-xl">
             <h3 className="text-white text-lg md:text-xl font-bold">
@@ -63,6 +67,8 @@ const OurDestination = () => {
               className="w-full h-[200px] md:h-[280px] lg:h-[320px] object-cover rounded-xl shadow-md"
               src={item.img}
               alt={item.title}
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 flex flex-col justify-end p-4 rounded-xl">
               <h3 className="text-white text-lg md:text-xl font-bold">

@@ -10,9 +10,9 @@ import {
 
 // ✅ Static images path (assuming in public/images/HomePage/)
 const images = [
-  "/images/HomePage/h1.png",
-  "/images/HomePage/h3.png",
-  "/images/HomePage/h4.png",
+  "/images/HomePage/h1.webp",
+  "/images/HomePage/h3.webp",
+  "/images/HomePage/h4.webp",
 ];
 
 const HeroSection = () => {

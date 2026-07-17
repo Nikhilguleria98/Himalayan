@@ -1,41 +1,45 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../src/Layout';
-import Home from './app/page';
-import About from './app/about/page';
-import Login from './app/Login/page';
-import AdminLogin from './app/AdminLogin/page';
-import SignUp from './app/Signup/page';
-import VerifyEmailPage from './app/verify-email/page';
-import Blog from './app/Blog/page';
-import BlogDetails from './app/Blog/BlogDetails';
-import Contact from './app/Contact/page';
-import CorporateTour from './app/corporateTour/page';
-import Cycling from './app/Cycling/page';
-import Package from './app/Package/page';
-import PackageDetail from './app/Carddetail/page';
-import Trekking from './app/trekking/page';
-import Trippage from './app/Trippage/page';
-import Transport from './app/Transport/page';
-import StudentTour from './app/StudentTours/page'
-import Spirtiualtours from './app/spiritualTours/page'
-import Destinations from './app/destinations/page'
-// import Carddetail from '../../my-frontend/src/app/Carddetail/page';
-import BikeTour from './app/biketour/page';
-import DiscoverTrips from './app/discoverTrips/page';
-import DashboardLayout from './app/Dashboard/layout';
-import DashboardPage from './app/Dashboard/page';
-import BlogEditor from './app/Dashboard/blogs/page';
-import NewListingPage from './app/Dashboard/new/page';
-import EditListingPage from './app/Dashboard/edit/[id]/page';
-import AdminUsersPage from './app/Dashboard/users/page';
-import AdminUserDetailPage from './app/Dashboard/users/[userId]/page';
-import UserDashboardPage from './app/user-dashboard/page';
-import UserProfilePage from './app/profile/page';
+
+// Load page code only after its route is requested. This keeps the initial
+// homepage bundle small, especially for the dashboard and editor routes.
+const Home = lazy(() => import('./app/page'));
+const About = lazy(() => import('./app/about/page'));
+const Login = lazy(() => import('./app/Login/page'));
+const AdminLogin = lazy(() => import('./app/AdminLogin/page'));
+const SignUp = lazy(() => import('./app/Signup/page'));
+const VerifyEmailPage = lazy(() => import('./app/verify-email/page'));
+const Blog = lazy(() => import('./app/Blog/page'));
+const BlogDetails = lazy(() => import('./app/Blog/BlogDetails'));
+const Contact = lazy(() => import('./app/Contact/page'));
+const CorporateTour = lazy(() => import('./app/corporateTour/page'));
+const Cycling = lazy(() => import('./app/Cycling/page'));
+const Package = lazy(() => import('./app/Package/page'));
+const PackageDetail = lazy(() => import('./app/Carddetail/page'));
+const Trekking = lazy(() => import('./app/trekking/page'));
+const Trippage = lazy(() => import('./app/Trippage/page'));
+const Transport = lazy(() => import('./app/Transport/page'));
+const StudentTour = lazy(() => import('./app/StudentTours/page'));
+const Spirtiualtours = lazy(() => import('./app/spiritualTours/page'));
+const Destinations = lazy(() => import('./app/destinations/page'));
+const BikeTour = lazy(() => import('./app/biketour/page'));
+const DiscoverTrips = lazy(() => import('./app/discoverTrips/page'));
+const DashboardLayout = lazy(() => import('./app/Dashboard/layout'));
+const DashboardPage = lazy(() => import('./app/Dashboard/page'));
+const BlogEditor = lazy(() => import('./app/Dashboard/blogs/page'));
+const NewListingPage = lazy(() => import('./app/Dashboard/new/page'));
+const EditListingPage = lazy(() => import('./app/Dashboard/edit/[id]/page'));
+const AdminUsersPage = lazy(() => import('./app/Dashboard/users/page'));
+const AdminUserDetailPage = lazy(() => import('./app/Dashboard/users/[userId]/page'));
+const UserDashboardPage = lazy(() => import('./app/user-dashboard/page'));
+const UserProfilePage = lazy(() => import('./app/profile/page'));
 
 
 
 export default function App() {
   return (
+    <Suspense fallback={<div className="min-h-screen bg-white" aria-busy="true" />}>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -77,6 +81,7 @@ export default function App() {
       </Route>
 
     </Routes>
+    </Suspense>
   );
 }
 

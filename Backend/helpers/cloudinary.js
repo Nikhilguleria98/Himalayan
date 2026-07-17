@@ -18,6 +18,9 @@ const uploadBuffer = (fileBuffer) => {
       {
         folder: "himalayan-khadu",
         resource_type: "image",
+        // Preserve a high-quality original in Cloudinary while allowing the
+        // frontend to request an efficiently sized, modern-format delivery.
+        transformation: [{ width: 1600, height: 1600, crop: "limit" }],
       },
       (error, result) => {
         if (error) {
@@ -39,6 +42,17 @@ export async function imageUploadUtil(fileOrFiles) {
     throw new Error("You can upload a maximum of 4 images.");
   }
   return Promise.all(files.map(uploadBuffer));
+}
+
+export function optimizedImageUrl(publicId) {
+  return cloudinary.url(publicId, {
+    secure: true,
+    resource_type: "image",
+    transformation: [
+      { width: 1600, height: 1600, crop: "limit" },
+      { fetch_format: "auto", quality: "auto:good" },
+    ],
+  });
 }
 
 const fileFilter = (req, file, cb) => {

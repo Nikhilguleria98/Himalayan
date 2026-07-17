@@ -4,7 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // Development uses source assets; production uses the generated compressed
+  // assets, created automatically by the prebuild script.
+  publicDir: command === 'build' ? 'public-optimized' : 'public',
   plugins: [react(),
          tailwindcss(),
   ],
@@ -17,4 +20,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
   },
-})
+}))

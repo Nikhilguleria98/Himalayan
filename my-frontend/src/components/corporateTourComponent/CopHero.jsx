@@ -24,6 +24,7 @@ const CopHero = () => {
                   src="/images/destinationPage/human.webp"
                   alt="Blue building with mural"
                   className="w-full h-full object-cover"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -33,6 +34,8 @@ const CopHero = () => {
                   src="/images/destinationPage/human2.webp"
                   alt="Mountain village"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="w-[35vw] h-[28vw] md:w-[15vw] md:h-[15vw] rounded-xl shadow-md overflow-hidden">
@@ -40,6 +43,8 @@ const CopHero = () => {
                   src="/images/destinationPage/human3.webp"
                   alt="Cyclists"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

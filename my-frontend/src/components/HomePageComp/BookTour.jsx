@@ -11,6 +11,8 @@ const BookTour = () => {
           className="w-full h-full object-center object-cover"
           src="/images/HomePage/BGP2.png"
           alt="Decorative Background"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -36,6 +38,8 @@ const BookTour = () => {
             className="w-full h-full object-center object-cover"
             src="/images/HomePage/Tour1.png"
             alt="Tour 1"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -44,6 +48,8 @@ const BookTour = () => {
             className="w-full h-full object-center object-cover"
             src="/images/HomePage/Tour4.png"
             alt="Tour 4"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -52,6 +58,8 @@ const BookTour = () => {
             className="w-full h-full object-center object-cover"
             src="/images/HomePage/Why3.png"
             alt="Why 3"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -60,6 +68,8 @@ const BookTour = () => {
             className="w-full h-full object-center object-cover"
             src="/images/HomePage/Tour2.png"
             alt="Tour 2"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -69,6 +79,8 @@ const BookTour = () => {
             className="w-full h-full object-center object-cover"
             src="/images/HomePage/BGP1.png"
             alt="Decorative Left Background"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

@@ -1,5 +1,5 @@
 import tourPackages from "../../models/tourPackages.js";
-import { imageUploadUtil } from "../../helpers/cloudinary.js";
+import { imageUploadUtil, optimizedImageUrl } from "../../helpers/cloudinary.js";
 import multer from "multer";
 
 export const PACKAGE_TAGS = ["bike", "cycle", "corporate", "spiritual", "student", "transport"];
@@ -34,7 +34,7 @@ export const uploadTourPackageImage = async (req, res) => {
     res.status(200).json({
       success: true,
       data: {
-        url: uploadedImage.secure_url,
+        url: optimizedImageUrl(uploadedImage.public_id),
         publicId: uploadedImage.public_id,
       },
     });
