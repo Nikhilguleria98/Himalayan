@@ -10,9 +10,11 @@ const Gallery = () => {
       alt: "Snowy Village",
       overlay: "+12 Photos",
     },
+    
   ];
 
   return (
+
     <div className="flex justify-center items-center w-full px-4 mt-10">
       <div className="max-w-screen-xl w-full text-center">
         <h2 className="text-2xl font-semibold text-teal-600 mb-6">
